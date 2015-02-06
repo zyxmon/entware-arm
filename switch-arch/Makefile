@@ -34,19 +34,5 @@ arm:
 	sed -i 's,ld-linux.so.2,ld-linux.so.3,g' $(TOP)/openwrt_trunk/rules.mk
 #	make -C $(TOP)/openwrt_trunk oldconfig
 
-x86:
-	$(call delete_arch_defs)
-	if [ ! -f "./.arch_defs_x86" ]; \
-	then \
-		cp -f arch_defs_x86 .arch_defs_x86; \
-		sed -i 's,__TOOLCHAIN_ROOT__,$(TOP)/i686-unknown-linux-gnu,g' .arch_defs_x86; \
-		sed -i 's,__SYSROOT__,$(TOP)/i686-unknown-linux-gnu/i686-unknown-linux-gnu/sysroot,g' .arch_defs_x86; \
-		sed -i 's,__USRBIN__,$(TOP)/i686-unknown-linux-gnu/i686-unknown-linux-gnu/sysroot/usr/bin,g' .arch_defs_x86; \
-		sed -i 's,__USR__,$(TOP)/i686-unknown-linux-gnu/i686-unknown-linux-gnu/sysroot/usr,g' .arch_defs_x86; \
-	fi
-	cat .arch_defs_x86 >> $(CFG)
-	sed -i 's,ld-linux.so.3,ld-linux.so.2,g' $(TOP)/openwrt_trunk/rules.mk
-#	make -C $(TOP)/openwrt_trunk oldconfig
 
-
-.PHONY: all arm x86
+.PHONY: all arm
