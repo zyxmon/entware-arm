@@ -109,8 +109,8 @@ CT_ARCH_DEFAULT_HAS_MMU=y
 CT_ARCH_DEFAULT_LE=y
 CT_ARCH_DEFAULT_32=y
 CT_ARCH_ARCH="armv7-a"
-CT_ARCH_CPU=""
-CT_ARCH_TUNE=""
+CT_ARCH_CPU="cortex-a9"
+CT_ARCH_TUNE="cortex-a9"
 CT_ARCH_FPU=""
 # CT_ARCH_BE is not set
 CT_ARCH_LE=y
@@ -118,7 +118,7 @@ CT_ARCH_32=y
 # CT_ARCH_64 is not set
 CT_ARCH_BITNESS=32
 # CT_ARCH_FLOAT_HW is not set
-# CT_ARCH_FLOAT_SW is not set
+CT_ARCH_FLOAT_SW=y
 CT_TARGET_CFLAGS=""
 CT_TARGET_LDFLAGS=""
 # CT_ARCH_alpha is not set
@@ -157,9 +157,9 @@ CT_ARCH_ENDIAN="little"
 #
 # Target optimisations
 #
-CT_ARCH_FLOAT_AUTO=y
+# CT_ARCH_FLOAT_AUTO is not set
 # CT_ARCH_FLOAT_SOFTFP is not set
-CT_ARCH_FLOAT="auto"
+CT_ARCH_FLOAT="soft"
 
 #
 # arm other options
@@ -382,15 +382,17 @@ CT_LIBC_GLIBC_MIN_KERNEL="2.6.32"
 # C compiler
 #
 CT_CC="gcc"
-CT_CC_VERSION="4.8.3"
+CT_CC_VERSION="4.8.4"
 CT_CC_CORE_PASSES_NEEDED=y
 CT_CC_CORE_PASS_1_NEEDED=y
 CT_CC_CORE_PASS_2_NEEDED=y
 CT_CC_gcc=y
 # CT_CC_GCC_SHOW_LINARO is not set
+# CT_CC_V_4_9_2 is not set
 # CT_CC_V_4_9_1 is not set
 # CT_CC_V_4_9_0 is not set
-CT_CC_V_4_8_3=y
+CT_CC_V_4_8_4=y
+# CT_CC_V_4_8_3 is not set
 # CT_CC_V_4_8_2 is not set
 # CT_CC_V_4_8_1 is not set
 # CT_CC_V_4_8_0 is not set
@@ -468,8 +470,8 @@ CT_CC_LANG_OTHERS=""
 # gcc other options
 #
 CT_CC_ENABLE_CXX_FLAGS=""
-CT_CC_CORE_EXTRA_CONFIG_ARRAY="--with-arch=armv5te --with-float=soft"
-CT_CC_EXTRA_CONFIG_ARRAY="--with-arch=armv5te --with-float=soft"
+CT_CC_CORE_EXTRA_CONFIG_ARRAY="--with-arch=armv7-a --with-float=soft"
+CT_CC_EXTRA_CONFIG_ARRAY="--with-arch=armv7-a --with-float=soft"
 CT_CC_STATIC_LIBSTDCXX=y
 # CT_CC_GCC_SYSTEM_ZLIB is not set
 

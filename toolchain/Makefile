@@ -9,7 +9,7 @@ export TOP?=$(shell (cd ../.. && pwd -P))
 
 CROSS=crosstool-ng-1.20.0
 CROSS_ARCH=$(CROSS).tar.bz2
-GCC_ARCH=gcc-4.8.3.tar.bz2
+GCC_ARCH=gcc-4.8.4.tar.bz2
 MPFR_ARCH=mpfr-3.1.2.tar.xz
 CLOOG_ARCH=cloog-0.18.1.tar.gz
 ISL_ARCH=isl-0.12.2.tar.lzma
@@ -36,7 +36,7 @@ all: .toolchain_prepared
 	$(TOP)/downloads/$(KERNEL_ARCH) \
 	$(TOP)/downloads/$(CROSS_ARCH)
 	tar -C $(TOP)/cross/$(TARGET) -xf $(TOP)/downloads/$(CROSS_ARCH)
-	patch -d $(TOP)/cross/$(TARGET)/$(CROSS) -p1 < glib220_add_from_upstream.patch
+	patch -d $(TOP)/cross/$(TARGET)/$(CROSS) -p1 < crosstool-ng-from-trunc.patch
 	( \
 		cd $(TOP)/cross/$(TARGET)/$(CROSS) && \
 		./bootstrap && \

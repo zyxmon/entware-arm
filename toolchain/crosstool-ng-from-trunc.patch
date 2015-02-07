@@ -1,0 +1,330 @@
+--- a/config/cc/gcc.in
++++ b/config/cc/gcc.in
+@@ -36,6 +36,17 @@
+ # Don't remove next line
+ # CT_INSERT_VERSION_BELOW
+ 
++config CC_V_linaro_4_9
++    bool
++    prompt "linaro-4.9-2015.01"
++    depends on CC_GCC_SHOW_LINARO
++    select CC_GCC_4_9
++
++config CC_V_4_9_2
++    bool
++    prompt "4.9.2"
++    select CC_GCC_4_9
++
+ config CC_V_4_9_1
+     bool
+     prompt "4.9.1"
+@@ -48,10 +59,15 @@
+ 
+ config CC_V_linaro_4_8
+     bool
+-    prompt "linaro-4.8-2014.01"
++    prompt "linaro-4.8-2014.11"
+     depends on CC_GCC_SHOW_LINARO
+     select CC_GCC_4_8
+ 
++config CC_V_4_8_4
++    bool
++    prompt "4.8.4"
++    select CC_GCC_4_8
++
+ config CC_V_4_8_3
+     bool
+     prompt "4.8.3"
+@@ -74,7 +90,7 @@
+ 
+ config CC_V_linaro_4_7
+     bool
+-    prompt "linaro-4.7-2014.01"
++    prompt "linaro-4.7-2014.06"
+     depends on CC_GCC_SHOW_LINARO
+     select CC_GCC_4_7
+ 
+@@ -492,14 +508,17 @@
+     string
+ # Don't remove next line
+ # CT_INSERT_VERSION_STRING_BELOW
++    default "linaro-4.9-2015.01" if CC_V_linaro_4_9
++    default "4.9.2" if CC_V_4_9_2
+     default "4.9.1" if CC_V_4_9_1
+     default "4.9.0" if CC_V_4_9_0
+-    default "linaro-4.8-2014.01" if CC_V_linaro_4_8
++    default "linaro-4.8-2014.11" if CC_V_linaro_4_8
++    default "4.8.4" if CC_V_4_8_4
+     default "4.8.3" if CC_V_4_8_3
+     default "4.8.2" if CC_V_4_8_2
+     default "4.8.1" if CC_V_4_8_1
+     default "4.8.0" if CC_V_4_8_0
+-    default "linaro-4.7-2014.01" if CC_V_linaro_4_7
++    default "linaro-4.7-2014.06" if CC_V_linaro_4_7
+     default "4.7.4" if CC_V_4_7_4
+     default "4.7.3" if CC_V_4_7_3
+     default "4.7.2" if CC_V_4_7_2
+--- a/config/cc/gcc.in.2
++++ b/config/cc/gcc.in.2
+@@ -148,7 +148,7 @@
+     prompt "Compile libsanitizer"
+     depends on CC_GCC_HAS_LIBSANITIZER
+     depends on THREADS_NATIVE
+-    depends on ! LIBC_uClibc # Currently lacks required headers (like netrom.h)
++    depends on ! LIBC_uClibc && ! LIBC_musl # Currently lacks required headers (like netrom.h)
+     help
+       libsanitizer is a library which provides run-time sanitising of either
+       or both of:
+--- a/config/libc/glibc-eglibc.in-common
++++ b/config/libc/glibc-eglibc.in-common
+@@ -14,6 +14,7 @@
+     default y if ARCH_arm
+     default y if ARCH_mips
+     select LIBC_GLIBC_USE_PORTS
++    depends on !LIBC_GLIBC_2_20_or_later
+ 
+ # Force using the BFD linker during the toolchain build
+ config LIBC_glibc_familly
+@@ -121,6 +122,7 @@
+ config LIBC_GLIBC_USE_PORTS
+     bool
+     prompt "Use the ports addon"
++    depends on !LIBC_GLIBC_2_20_or_later
+     help
+       The ports addon contains some architecture ports that are not available
+       in the official distribution.
+--- a/config/libc/glibc.in
++++ b/config/libc/glibc.in
+@@ -17,6 +17,11 @@
+ # Don't remove next line
+ # CT_INSERT_VERSION_BELOW
+ 
++config LIBC_GLIBC_V_2_20
++    bool
++    prompt "2.20"
++    select LIBC_GLIBC_2_20_or_later
++
+ config LIBC_GLIBC_V_2_19
+     bool
+     prompt "2.19"
+@@ -90,12 +95,38 @@
+     prompt "2.8"
+     select LIBC_GLIBC_PORTS_EXTERNAL
+ 
++config LIBC_GLIBC_CUSTOM
++    bool
++    prompt "Custom glibc"
++    depends on EXPERIMENTAL
++    select LIBC_CUSTOM
++    select LIBC_GLIBC_2_20_or_later
++
+ endchoice
+ 
++config LIBC_GLIBC_2_20_or_later
++    bool
++
++config LIBC_CUSTOM
++    bool
++
++if LIBC_GLIBC_CUSTOM
++
++config LIBC_GLIBC_CUSTOM_LOCATION
++    string
++    prompt "Full path to custom glibc source"
++    default ""
++    help
++      Enter the path to the directory (or tarball) of your source for glibc,
++      or leave blank to use default CT_CUSTOM_LOCATION_ROOT_DIR/glibc
++
++endif # LIBC_GLIBC_CUSTOM
++
+ config LIBC_VERSION
+     string
+ # Don't remove next line
+ # CT_INSERT_VERSION_STRING_BELOW
++    default "2.20" if LIBC_GLIBC_V_2_20
+     default "2.19" if LIBC_GLIBC_V_2_19
+     default "2.18" if LIBC_GLIBC_V_2_18
+     default "2.17" if LIBC_GLIBC_V_2_17
+@@ -111,3 +142,4 @@
+     default "2.10.1" if LIBC_GLIBC_V_2_10_1
+     default "2.9" if LIBC_GLIBC_V_2_9
+     default "2.8" if LIBC_GLIBC_V_2_8
++    default "custom" if LIBC_GLIBC_CUSTOM
+--- a/patches/gcc/4.8.4/001_gcc_bug_62231.patch
++++ b/patches/gcc/4.8.4/001_gcc_bug_62231.patch
+@@ -0,0 +1,129 @@
++As-applied.  From:
++
++https://gcc.gnu.org/ml/gcc-patches/2014-09/msg02625.html
++
++Linked from bug62231 comment 4 there
++
++diff -durN a/gcc/defaults.h b/gcc/defaults.h
++--- a/gcc/defaults.h	2013-01-10 12:38:27.000000000 -0800
+++++ b/gcc/defaults.h	2014-12-15 13:26:13.498904465 -0800
++@@ -438,6 +438,11 @@
++ #define DWARF_FRAME_REGNUM(REG) DBX_REGISTER_NUMBER (REG)
++ #endif
++ 
+++/* The mapping from dwarf CFA reg number to internal dwarf reg numbers.  */
+++#ifndef DWARF_REG_TO_UNWIND_COLUMN
+++#define DWARF_REG_TO_UNWIND_COLUMN(REGNO) (REGNO)
+++#endif
+++
++ /* Map register numbers held in the call frame info that gcc has
++    collected using DWARF_FRAME_REGNUM to those that should be output in
++    .debug_frame and .eh_frame.  */
++diff -durN a/gcc/dwarf2cfi.c b/gcc/dwarf2cfi.c
++--- a/gcc/dwarf2cfi.c	2013-01-10 12:38:27.000000000 -0800
+++++ b/gcc/dwarf2cfi.c	2014-12-15 13:50:24.554883694 -0800
++@@ -225,7 +225,44 @@
++   emit_move_insn (adjust_address (mem, mode, offset), GEN_INT (size));
++ }
++ 
++-/* Generate code to initialize the register size table.  */
+++/* Helper for expand_builtin_init_dwarf_reg_sizes.  Generate code to
+++   initialize the dwarf register size table entry corresponding to register
+++   REGNO in REGMODE.  TABLE is the table base address, SLOTMODE is the mode
+++   to use for the size entry to initialize, and WROTE_RETURN_COLUMN needs to
+++   be set to true if the dwarf register number for REGNO is the dwarf return
+++   column number.  */
+++
+++static
+++void init_one_dwarf_reg_size (int regno, enum machine_mode regmode,
+++			      rtx table, enum machine_mode slotmode,
+++			      bool *wrote_return_column)
+++{
+++  const unsigned int dnum = DWARF_FRAME_REGNUM (regno);
+++  const unsigned int rnum = DWARF2_FRAME_REG_OUT (dnum, 1);
+++  const unsigned int dcol = DWARF_REG_TO_UNWIND_COLUMN (rnum);
+++  
+++  const HOST_WIDE_INT slotoffset = dcol * GET_MODE_SIZE (slotmode);
+++  const HOST_WIDE_INT regsize = GET_MODE_SIZE (regmode);
+++
+++  if (rnum >= DWARF_FRAME_REGISTERS)
+++    return;
+++
+++  if (dnum == DWARF_FRAME_RETURN_COLUMN)
+++    {
+++      if (regmode == VOIDmode)
+++	return;
+++      *wrote_return_column = true;
+++    }
+++
+++  if (slotoffset < 0)
+++    return;
+++
+++  emit_move_insn (adjust_address (table, slotmode, slotoffset),
+++		  gen_int_mode (regsize, slotmode));
+++}
+++
+++/* Generate code to initialize the dwarf register size table located
+++   at the provided ADDRESS.  */
++ 
++ void
++ expand_builtin_init_dwarf_reg_sizes (tree address)
++@@ -238,30 +275,21 @@
++ 
++   for (i = 0; i < FIRST_PSEUDO_REGISTER; i++)
++     {
++-      unsigned int dnum = DWARF_FRAME_REGNUM (i);
++-      unsigned int rnum = DWARF2_FRAME_REG_OUT (dnum, 1);
++-
++-      if (rnum < DWARF_FRAME_REGISTERS)
++-	{
++-	  HOST_WIDE_INT offset = rnum * GET_MODE_SIZE (mode);
++-	  enum machine_mode save_mode = reg_raw_mode[i];
++-	  HOST_WIDE_INT size;
++-
++-	  if (HARD_REGNO_CALL_PART_CLOBBERED (i, save_mode))
++-	    save_mode = choose_hard_reg_mode (i, 1, true);
++-	  if (dnum == DWARF_FRAME_RETURN_COLUMN)
++-	    {
++-	      if (save_mode == VOIDmode)
++-		continue;
++-	      wrote_return_column = true;
++-	    }
++-	  size = GET_MODE_SIZE (save_mode);
++-	  if (offset < 0)
++-	    continue;
+++      enum machine_mode save_mode = reg_raw_mode[i];
+++      rtx span;
++ 
++-	  emit_move_insn (adjust_address (mem, mode, offset),
++-			  gen_int_mode (size, mode));
++-	}
+++      span = targetm.dwarf_register_span (gen_rtx_REG (save_mode, i));
+++      if (!span)
+++        init_one_dwarf_reg_size (i, save_mode, mem, mode, &wrote_return_column);
+++      else
+++        {
+++          for (int si = 0; si < XVECLEN (span, 0); si++)
+++            {
+++              rtx reg = XVECEXP (span, 0, si);
+++              init_one_dwarf_reg_size
+++              (REGNO (reg), GET_MODE (reg), mem, mode, &wrote_return_column);
+++            }
+++        }
++     }
++ 
++   if (!wrote_return_column)
++diff -durN a/libgcc/unwind-dw2.c b/libgcc/unwind-dw2.c
++--- a/libgcc/unwind-dw2.c	2013-05-31 16:21:46.000000000 -0700
+++++ b/libgcc/unwind-dw2.c	2014-12-15 13:26:13.570904866 -0800
++@@ -55,10 +55,6 @@
++ #define PRE_GCC3_DWARF_FRAME_REGISTERS DWARF_FRAME_REGISTERS
++ #endif
++ 
++-#ifndef DWARF_REG_TO_UNWIND_COLUMN
++-#define DWARF_REG_TO_UNWIND_COLUMN(REGNO) (REGNO)
++-#endif
++-
++ /* ??? For the public function interfaces, we tend to gcc_assert that the
++    column numbers are in range.  For the dwarf2 unwind info this does happen,
++    although so far in a case that doesn't actually matter.
+--- a/patches/gcc/4.8.4/002_gcc_bug_62231.patch
++++ b/patches/gcc/4.8.4/002_gcc_bug_62231.patch
+@@ -0,0 +1,18 @@
++As-applied.  From:
++
++https://gcc.gnu.org/ml/gcc-patches/2014-10/msg02605.html
++
++Linked from bug62231 comment 4 there
++
++diff -durN a/gcc/config/rs6000/rs6000.c b/gcc/config/rs6000/rs6000.c
++--- a/gcc/config/rs6000/rs6000.c	2014-12-08 17:29:04.000000000 -0800
+++++ b/gcc/config/rs6000/rs6000.c	2014-12-15 14:44:46.568801843 -0800
++@@ -1673,7 +1673,7 @@
++      SCmode so as to pass the value correctly in a pair of
++      registers.  */
++   else if (TARGET_E500_DOUBLE && FLOAT_MODE_P (mode) && mode != SCmode
++-	   && !DECIMAL_FLOAT_MODE_P (mode))
+++	   && !DECIMAL_FLOAT_MODE_P (mode) && SPE_SIMD_REGNO_P (regno))
++     reg_size = UNITS_PER_FP_WORD;
++ 
++   else
+--- a/patches/gcc/4.8.4/003-PR57717-E500v2.patch
++++ b/patches/gcc/4.8.4/003-PR57717-E500v2.patch
+@@ -0,0 +1,21 @@
++This backports fix from http://gcc.gnu.org/bugzilla/show_bug.cgi?id=57717
++
++Upstream-Status: Backport
++Signed-off-by: Julian Brown <Julian_Brown@mentor.com>
++
++fix for PR57717 (PowerPC E500v2)
++http://gcc.gnu.org/ml/gcc-patches/2013-08/msg00668.html
++
++--- a/gcc/config/rs6000/rs6000.c	2013-05-09 20:54:06.000000000 -0500
+++++ b/gcc/config/rs6000/rs6000.c	2013-08-28 01:25:24.865218744 -0500
++@@ -7385,9 +7385,7 @@
++       && GET_CODE (XEXP (x, 1)) == CONST_INT
++       && reg_offset_p
++       && !SPE_VECTOR_MODE (mode)
++-      && !(TARGET_E500_DOUBLE && (mode == DFmode || mode == TFmode
++-				  || mode == DDmode || mode == TDmode
++-				  || mode == DImode))
+++      && !(TARGET_E500_DOUBLE && GET_MODE_SIZE (mode) > UNITS_PER_WORD)
++       && (!VECTOR_MODE_P (mode) || VECTOR_MEM_NONE_P (mode)))
++     {
++       HOST_WIDE_INT val = INTVAL (XEXP (x, 1));
