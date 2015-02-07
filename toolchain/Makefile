@@ -16,7 +16,7 @@ ISL_ARCH=isl-0.12.2.tar.lzma
 MPC_ARCH=mpc-1.0.2.tar.gz
 GLIBC_ARCH=glibc-2.20.tar.xz
 BINUTILS_ARCH=binutils-2.24.tar.bz2
-KERNEL_ARCH=linux-2.6.32.63.tar.xz
+KERNEL_ARCH=linux-2.6.36.4.tar.xz
 
 
 include ../config.mk
