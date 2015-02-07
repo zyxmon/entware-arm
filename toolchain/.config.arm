@@ -244,9 +244,9 @@ CT_KERNEL_linux_AVAILABLE=y
 # CT_KERNEL_V_2_6_39 is not set
 # CT_KERNEL_V_2_6_38 is not set
 # CT_KERNEL_V_2_6_37 is not set
-# CT_KERNEL_V_2_6_36 is not set
-# CT_KERNEL_V_2_6_33 is not set
 CT_KERNEL_V_2_6_36=y
+# CT_KERNEL_V_2_6_33 is not set
+# CT_KERNEL_V_2_6_32 is not set
 # CT_KERNEL_V_2_6_31 is not set
 # CT_KERNEL_V_2_6_27 is not set
 # CT_KERNEL_LINUX_CUSTOM is not set
