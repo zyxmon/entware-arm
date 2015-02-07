@@ -7,10 +7,11 @@
 include $(TOPDIR)/rules.mk
 
 ARCH:=arm
-BOARD:=qnaparm
-BOARDNAME:=QNAP arm
+BOARD:=armv7soft
+BOARDNAME:=Board with armv7 (cortex-a9) SoC
 FEATURES:=
-LINUX_VERSION:=2.6.32
+LINUX_VERSION:=2.6.36
+CPU_TYPE:=cortex-a9
 
 include $(INCLUDE_DIR)/target.mk
 
