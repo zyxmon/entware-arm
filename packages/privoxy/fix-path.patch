@@ -7,8 +7,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43593/feeds/packages/net/privox
  config	privoxy	'privoxy'
 -	option	confdir		'/etc/privoxy'
 -	option	logdir		'/var/log'
-+	option	confdir		'/Apps/opt/etc/privoxy'
-+	option	logdir		'/Apps/opt/var/log'
++	option	confdir		'/opt/etc/privoxy'
++	option	logdir		'/opt/var/log'
  	option	logfile		'privoxy.log'
  	list	filterfile	'default.filter'
  	list	actionsfile	'match-all.action'
@@ -21,8 +21,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43593/feeds/packages/net/privox
  #
 -confdir /etc/privoxy
 -logdir /var/log
-+confdir /Apps/opt/etc/privoxy
-+logdir /Apps/opt/var/log
++confdir /opt/etc/privoxy
++logdir /opt/var/log
  logfile privoxy.log
  filterfile default.filter
  actionsfile match-all.action # Actions that are applied to all sites and maybe overruled later on.
@@ -34,7 +34,7 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43593/feeds/packages/net/privox
  
  CONFIGURE_ARGS += \
 -	--sysconfdir=/etc/privoxy \
-+	--sysconfdir=/Apps/opt/etc/privoxy \
++	--sysconfdir=/opt/etc/privoxy \
  
  # needed otherwise errors during compile
  MAKE_FLAGS:=
@@ -58,7 +58,7 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43593/feeds/packages/net/privox
 -	# [ "$${PKG_UPGRADE}" = "1" ] && /etc/init.d/privoxy stop
 -	/etc/init.d/privoxy stop >/dev/null 2>&1
 -	exit 0	# supress errors from stop command
-+/Apps/opt/etc/privoxy/config	# temporary needed if updating from old version
++/opt/etc/privoxy/config	# temporary needed if updating from old version
  endef
  
  define Package/privoxy/install
@@ -70,14 +70,14 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43593/feeds/packages/net/privox
 -	# $(INSTALL_DIR) $(1)/etc/hotplug.d/iface
 -	# $(INSTALL_BIN) ./files/privoxy.hotplug $(1)/etc/hotplug.d/iface/80-privoxy
 +	$(INSTALL_DIR) $(1)/opt/sbin
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/sbin/privoxy $(1)/opt/sbin/
++	$(CP) $(PKG_INSTALL_DIR)/opt/sbin/privoxy $(1)/opt/sbin/
 +	$(INSTALL_DIR) $(1)/opt/etc/init.d
 +	$(INSTALL_BIN) ./files/S24privoxy $(1)/opt/etc/init.d/
  
 -	$(INSTALL_DIR) $(1)/etc/privoxy
 -	$(CP) $(PKG_INSTALL_DIR)/etc/privoxy/* $(1)/etc/privoxy/
 +	$(INSTALL_DIR) $(1)/opt/etc/privoxy
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/etc/privoxy/* $(1)/opt/etc/privoxy/
++	$(CP) $(PKG_INSTALL_DIR)/opt/etc/privoxy/* $(1)/opt/etc/privoxy/
  	# temporary needed if updating from old version
  	# otherwise old config file will be delete by opkg
 -	$(INSTALL_CONF) ./files/privoxy.oldconfig $(1)/etc/privoxy/config

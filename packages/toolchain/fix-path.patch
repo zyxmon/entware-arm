@@ -72,20 +72,20 @@
 +#!/bin/sh
 +
 +echo "qnapware uses separate locale-archive file independent from main system"
-+if ! [ -f '/Apps/opt/usr/lib/locale/locale-archive' ]
++if ! [ -f '/opt/usr/lib/locale/locale-archive' ]
 +then
-+	mkdir -p /Apps/opt/usr/lib/locale
-+        echo "Creating locale archive - /Apps/opt/usr/lib/locale/locale-archive"
++	mkdir -p /opt/usr/lib/locale
++        echo "Creating locale archive - /opt/usr/lib/locale/locale-archive"
 +        echo "Adding en_EN.UTF-8"
-+        /Apps/opt/bin/localedef.new -c -f UTF-8 -i en_US en_US.UTF-8
++        /opt/bin/localedef.new -c -f UTF-8 -i en_US en_US.UTF-8
 +        echo "Adding ru_RU.UTF-8"
-+        /Apps/opt/bin/localedef.new -c -f UTF-8 -i ru_RU ru_RU.UTF-8
++        /opt/bin/localedef.new -c -f UTF-8 -i ru_RU ru_RU.UTF-8
 +fi
-+if [ -f '/Apps/opt/usr/lib/locale/locale-archive' ]
++if [ -f '/opt/usr/lib/locale/locale-archive' ]
 +then
-+        echo "/Apps/opt/usr/lib/locale/locale-archive found"
++        echo "/opt/usr/lib/locale/locale-archive found"
 +        echo "You can download locale sources from http://qnapware.zyxmon.org/sources/i18n.tar.gz"
-+        echo "You can add new locales for qnapware using /Apps/opt/bin/localedef.new"
++        echo "You can add new locales for qnapware using /opt/bin/localedef.new"
 +fi
 +endef
 +
@@ -211,7 +211,7 @@
 +		$(CP) $(call qstrip,$(CONFIG_LIBC_ROOT_DIR))/$$$$file $(1)/opt/$$$$dir/ ; \
  	done ; \
 +	$(INSTALL_DIR) $(1)/opt/etc ; \
-+	$(CP) ./files/nsswitch_syno.conf $(1)/opt/etc/nsswitch.conf ; \
++	$(CP) ./files/nsswitch.conf $(1)/opt/etc/nsswitch.conf ; \
  	exit 0
    endef
  
@@ -251,8 +251,8 @@
 +		$(CP) $(call qstrip,$(CONFIG_LDD_ROOT_DIR))/$$$$file $(1)/opt/bin/ ; \
  	done ; \
 +	$(SED) 's!/bin/bash!/bin/sh!g' $(1)/opt/bin/ldd ; \
-+	$(SED) 's!/lib/ld-linux.so.3!/Apps/opt/lib/ld-linux.so.3!g' $(1)/opt/bin/ldd ; \
-+	$(SED) 's!/lib/ld-linux.so.2!/Apps/opt/lib/ld-linux.so.2!g' $(1)/opt/bin/ldd ; \
++	$(SED) 's!/lib/ld-linux.so.3!/opt/lib/ld-linux.so.3!g' $(1)/opt/bin/ldd ; \
++	$(SED) 's!/lib/ld-linux.so.2!/opt/lib/ld-linux.so.2!g' $(1)/opt/bin/ldd ; \
  	exit 0
    endef
  

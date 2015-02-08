@@ -28,12 +28,12 @@
 -		--sbindir=/usr/sbin \
 -		--libexecdir=/usr/lib \
 -		--sysconfdir=/etc \
-+		--prefix=/Apps/opt \
-+		--exec-prefix=/Apps/opt \
-+		--bindir=/Apps/opt/bin \
-+		--sbindir=/Apps/opt/sbin \
-+		--libexecdir=/Apps/opt/lib \
-+		--sysconfdir=/Apps/opt/etc \
++		--prefix=/opt \
++		--exec-prefix=/opt \
++		--bindir=/opt/bin \
++		--sbindir=/opt/sbin \
++		--libexecdir=/opt/lib \
++		--sysconfdir=/opt/etc \
  		$(if $(CONFIG_KEXEC_ZLIB),--with,--without)-zlib \
  		--without-lzma
  
@@ -45,7 +45,7 @@
 +	$(INSTALL_DIR) $(1)/opt/sbin
  	$(INSTALL_BIN) \
 -		$(addprefix $(PKG_INSTALL_DIR)/usr/sbin/, \
-+		$(addprefix $(PKG_INSTALL_DIR)/Apps/opt/sbin/, \
++		$(addprefix $(PKG_INSTALL_DIR)/opt/sbin/, \
  			$(kexec-extra-sbin-y)) \
  		$(kexec-extra-bin-y) \
 -		$(PKG_INSTALL_DIR)/usr/sbin/kexec \
@@ -54,7 +54,7 @@
 -# make a link for compatability with other distros
 -	$(INSTALL_DIR) $(1)/sbin
 -	ln -s /usr/sbin/kexec $(1)/sbin/kexec
-+		$(PKG_INSTALL_DIR)/Apps/opt/sbin/kexec \
++		$(PKG_INSTALL_DIR)/opt/sbin/kexec \
 +		$(1)/opt/sbin
  endef
  

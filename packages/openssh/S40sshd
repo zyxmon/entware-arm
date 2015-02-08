@@ -1,11 +1,11 @@
 #!/bin/sh
 
-prefix="/Apps/opt"
+prefix="/opt"
 PATH=${prefix}/bin:${prefix}/sbin:/sbin:/bin:/usr/sbin:/usr/bin
 
 start() {
         echo "starting sshd..."
-        /Apps/opt/sbin/sshd
+        /opt/sbin/sshd
         }
 
 stop() {

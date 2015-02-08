@@ -12,13 +12,13 @@
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/include/* \
 -		$(1)/usr/include/
-+		$(PKG_INSTALL_DIR)/Apps/opt/include/* \
++		$(PKG_INSTALL_DIR)/opt/include/* \
 +		$(1)/opt/include/
  
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/* \
 -		$(1)/usr/lib/
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/* \
++		$(PKG_INSTALL_DIR)/opt/lib/* \
 +		$(1)/opt/lib/
  endef
  
@@ -30,19 +30,19 @@
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/libprotoc.so*  \
 -		$(1)/usr/lib/
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/libprotoc.so*  \
++		$(PKG_INSTALL_DIR)/opt/lib/libprotoc.so*  \
 +		$(1)/opt/lib/
  
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/libprotobuf-lite.so* \
 -		$(1)/usr/lib/
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/libprotobuf-lite.so* \
++		$(PKG_INSTALL_DIR)/opt/lib/libprotobuf-lite.so* \
 +		$(1)/opt/lib/
  
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/libprotobuf.so* \
 -		$(1)/usr/lib/
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/libprotobuf.so* \
++		$(PKG_INSTALL_DIR)/opt/lib/libprotobuf.so* \
 +		$(1)/opt/lib/
  endef
  

@@ -1,5 +1,5 @@
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/config.site ../../../openwrt_trunk/feeds/packages/lang/python/files/config.site
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/config.site	2015-01-05 20:26:58.501539680 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/config.site ../../../openwrt_trunk/feeds/packages/lang/python/files/config.site
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/config.site	2014-12-15 16:50:13.284093580 +0300
 +++ ../../../openwrt_trunk/feeds/packages/lang/python/files/config.site	1970-01-01 03:00:00.000000000 +0300
 @@ -1,12 +0,0 @@
 -#! /bin/sh
@@ -14,9 +14,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 -ac_cv_file__dev_ptc=no
 -ac_cv_buggy_getaddrinfo=no
 -
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/python-package.mk ../../../openwrt_trunk/feeds/packages/lang/python/files/python-package.mk
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/python-package.mk	2015-01-05 20:26:58.501539680 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/files/python-package.mk	2015-01-08 12:18:58.171130799 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/python-package.mk ../../../openwrt_trunk/feeds/packages/lang/python/files/python-package.mk
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/files/python-package.mk	2014-12-15 16:50:13.284093580 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/files/python-package.mk	2014-10-15 10:43:20.715917720 +0400
 @@ -1,29 +1,25 @@
  #
 -# Copyright (C) 2007-2014 OpenWrt.org
@@ -53,7 +53,7 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
  		export PYTHONOPTIMIZE=""; \
  		export PYTHONDONTWRITEBYTECODE=1; \
  		$(1) \
-@@ -31,35 +27,23 @@
+@@ -31,26 +27,14 @@
  	)
  endef
  
@@ -81,18 +81,7 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
  			dpath=`dirname "$$$$$$$$fspec"`; \
  			if [ -n "$$$$$$$$fperm" ]; then \
  			  dperm="-m$$$$$$$$fperm"; \
- 			else \
--			  dperm=`stat -c "%a" $(PKG_INSTALL_DIR)$$$$$$$$dpath`; \
-+			  dperm=`stat -c "%a" $(PKG_INSTALL_DIR)/Apps$$$$$$$$dpath`; \
- 			fi; \
- 			mkdir -p $$$$$$$$$dperm $$(1)$$$$$$$$dpath; \
- 			echo "copying: '$$$$$$$$fspec'"; \
--			cp -fpR $(PKG_INSTALL_DIR)$$$$$$$$fspec $$(1)$$$$$$$$dpath/; \
-+			cp -fpR $(PKG_INSTALL_DIR)/Apps$$$$$$$$fspec $$(1)$$$$$$$$dpath/; \
- 			if [ -n "$$$$$$$$fperm" ]; then \
- 			  chmod -R $$$$$$$$fperm $$(1)$$$$$$$$fspec; \
- 			fi; \
-@@ -80,21 +64,14 @@
+@@ -80,18 +64,11 @@
  # $(2) => additional arguments to setup.py
  # $(3) => additional variables
  define Build/Compile/PyMod
@@ -113,13 +102,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
  		$(3) \
  		, \
  		./setup.py $(2) \
- 	)
--	find $(PKG_INSTALL_DIR) -name "*\.pyc" -o -name "*\.pyo" | xargs rm -f
-+	find $(PKG_INSTALL_DIR)/Apps -name "*\.pyc" -o -name "*\.pyo" | xargs rm -f
- endef
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/Makefile ../../../openwrt_trunk/feeds/packages/lang/python/Makefile
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/Makefile	2015-01-05 20:26:58.501539680 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/Makefile	2015-01-08 12:19:37.095351723 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/Makefile ../../../openwrt_trunk/feeds/packages/lang/python/Makefile
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/Makefile	2014-12-15 16:50:13.284093580 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/Makefile	2014-10-15 10:43:20.715917720 +0400
 @@ -1,5 +1,5 @@
  #
 -# Copyright (C) 2006-2014 OpenWrt.org
@@ -311,7 +296,7 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 +	$(CP) $(STAGING_DIR_HOST)/bin/pgen $(PKG_BUILD_DIR)/hostpgen
 +	$(CP) $(STAGING_DIR_HOST)/bin/python$(PYTHON_VERSION) $(PKG_BUILD_DIR)/hostpython
 +	$(call Build/Configure/Default, \
-+		--sysconfdir=/Apps/opt/etc \
++		--sysconfdir=/opt/etc \
 +		--disable-shared \
 +		--without-cxx-main \
 +		--with-threads \
@@ -335,7 +320,7 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/include/python$(PYTHON_VERSION) \
 -		$(1)/usr/include/
-+		$(PKG_INSTALL_DIR)/Apps/opt/include/python$(PYTHON_VERSION) \
++		$(PKG_INSTALL_DIR)/opt/include/python$(PYTHON_VERSION) \
 +		$(1)/opt/include/
  	$(CP) \
  		$(STAGING_DIR_HOST)/lib/python$(PYTHON_VERSION) \
@@ -347,7 +332,7 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 -		$(PKG_INSTALL_DIR)/usr/lib/python$(PYTHON_VERSION)/config \
 -		$(1)/usr/lib/python$(PYTHON_VERSION)/
 -endef
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/python$(PYTHON_VERSION)/config \
++		$(PKG_INSTALL_DIR)/opt/lib/python$(PYTHON_VERSION)/config \
 +		$(1)/opt/lib/python$(PYTHON_VERSION)/
 +
 +	$(CP) \
@@ -728,9 +713,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 +$(eval $(call BuildPackage,python-gdbm))
 +$(eval $(call BuildPackage,python-readline))
 +$(eval $(call BuildPackage,python-ncurses))
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/000-cross-compile.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/000-cross-compile.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/000-cross-compile.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/000-cross-compile.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/000-cross-compile.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/000-cross-compile.patch	2015-01-08 09:33:49.347575507 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/000-cross-compile.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,112 @@
 +---
 + Makefile.pre.in |   25 +++++++++++++------------
@@ -844,9 +829,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 
 + # Dependencies
 + 
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch	2015-01-08 09:33:49.347575507 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/020-dont-compile-python-files.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,33 @@
 +---
 + Makefile.pre.in |   16 ----------------
@@ -881,9 +866,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 
 + # Create the PLATDIR source directory, if one wasn't distributed..
 + $(srcdir)/Lib/$(PLATDIR):
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch	2015-01-08 09:33:49.351135231 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/030-fixup-include-dirs.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,50 @@
 +---
 + setup.py |   15 ++-------------
@@ -935,9 +920,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 +         exts = []
 +         missing = []
 + 
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch	2015-01-08 09:33:49.351135231 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/040-dont-import-cross-compiled-modules.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,43 @@
 +---
 + setup.py |   30 ------------------------------
@@ -982,9 +967,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 
 +     def get_platform(self):
 +         # Get value of sys.platform
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch	2015-01-08 09:33:49.351135231 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/070-dont-clean-ipkg-install.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,23 @@
 +---
 + Makefile.pre.in |    6 +++---
@@ -1009,9 +994,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 	find build -name 'fficonfig.h' -exec rm -f {} ';' || true
 + 	find build -name 'fficonfig.py' -exec rm -f {} ';' || true
 + 	-rm -f Lib/lib2to3/*Grammar*.pickle
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch	2015-01-08 09:33:49.351135231 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/080-distutils-dont_adjust_files.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,63 @@
 +---
 + Lib/distutils/command/build_scripts.py |   43 +++------------------------------
@@ -1076,9 +1061,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 
 +         if os.name == 'posix':
 +             for file in outfiles:
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/110-enable-zlib.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/110-enable-zlib.patch
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/110-enable-zlib.patch	2015-01-05 20:26:58.501539680 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/110-enable-zlib.patch	2015-01-08 09:33:49.351135231 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/110-enable-zlib.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/110-enable-zlib.patch
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/110-enable-zlib.patch	2014-12-15 16:50:13.284093580 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/110-enable-zlib.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -1,17 +1,10 @@
 -From 6eeab87bc852481e599325549c854b701bf2e39f Mon Sep 17 00:00:00 2001
 -From: Alexandru Ardelean <aa@ocedo.com>
@@ -1106,8 +1091,8 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 --- 
 -1.8.4.5
 -
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch	2015-01-05 20:26:58.501539680 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch	2014-12-15 16:50:13.284093580 +0300
 +++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-do-not-add-include-dirs-when-cross-compiling.patch	1970-01-01 03:00:00.000000000 +0300
 @@ -1,14 +0,0 @@
 -diff --git a/setup.py b/setup.py
@@ -1124,9 +1109,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 -             # OSX note: Don't add LIBDIR and INCLUDEDIR to building a framework
 -             # (PYTHONFRAMEWORK is set) to avoid # linking problems when
 -             # building a framework with different architectures than
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch	2015-01-08 09:33:49.351135231 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/120-force-internal-modules-for-hashlib.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,25 @@
 +---
 + setup.py |   10 ++++++----
@@ -1153,8 +1138,8 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 +             # OpenSSL doesn't do these until 0.9.8 so we'll bring our own hash
 +             exts.append( Extension('_sha256', ['sha256module.c']) )
 +             exts.append( Extension('_sha512', ['sha512module.c']) )
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch	2015-01-05 20:26:58.501539680 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch	2014-12-15 16:50:13.284093580 +0300
 +++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-do-not-run-distutils-tests.patch	1970-01-01 03:00:00.000000000 +0300
 @@ -1,37 +0,0 @@
 -diff --git a/Makefile.pre.in b/Makefile.pre.in
@@ -1194,9 +1179,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 - 
 - # Create the PLATDIR source directory, if one wasn't distributed..
 - $(srcdir)/Lib/$(PLATDIR):
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-readline-setup.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-readline-setup.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-readline-setup.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-readline-setup.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/130-readline-setup.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-readline-setup.patch	2015-01-08 09:33:49.355177225 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/130-readline-setup.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,36 @@
 +--- a/setup.py
 ++++ b/setup.py
@@ -1234,8 +1219,8 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 
 +         if platform == 'darwin':
 +             os_release = int(os.uname()[2].split('.')[0])
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch
---- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch	2015-01-05 20:26:58.501539680 +0300
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch
+--- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch	2014-12-15 16:50:13.284093580 +0300
 +++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-do-not-write-bytes-codes.patch	1970-01-01 03:00:00.000000000 +0300
 @@ -1,22 +0,0 @@
 -diff --git a/Python/pythonrun.c b/Python/pythonrun.c
@@ -1260,9 +1245,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 -     /* The variable is only tested for existence here; _PyRandom_Init will
 -        check its value further. */
 -     if ((p = Py_GETENV("PYTHONHASHSEED")) && *p != '\0')
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch	2015-01-08 09:33:49.359184831 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/140-verbose-sharedmods.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,11 @@
 +--- a/Makefile.pre.in
 ++++ b/Makefile.pre.in
@@ -1275,9 +1260,9 @@ diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/py
 + 	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py build;; \
 + 	esac
 + 
-diff -N -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch
+diff -urNx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch ../../../openwrt_trunk/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch	1970-01-01 03:00:00.000000000 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch	2015-01-08 09:33:49.359184831 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python/patches/150-no-sqlite-rpath.patch	2014-10-15 10:41:58.055919226 +0400
 @@ -0,0 +1,10 @@
 +--- a/setup.py
 ++++ b/setup.py

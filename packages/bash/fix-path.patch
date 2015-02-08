@@ -5,7 +5,7 @@
  	$(call Build/Configure/Default, \
  		--without-bash-malloc \
 -                --bindir=/bin \
-+                --bindir=/Apps/opt/bin \
++                --bindir=/opt/bin \
  	)
  endef
  
@@ -25,7 +25,7 @@
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/bin/bash $(1)/bin/
 -	ln -sf bash $(1)/bin/rbash
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/bash $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/bash $(1)/opt/bin/
 +	ln -sf bash $(1)/opt/bin/rbash
  endef
  

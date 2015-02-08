@@ -54,8 +54,8 @@
  	--with-os-url="http://openwrt.org/" \
 -	--with-db-path="/var/run/minidlna" \
 -	--with-log-path="/var/log" \
-+	--with-db-path="/Apps/opt/var/minidlna" \
-+	--with-log-path="/Apps/opt/var/minidlna" \
++	--with-db-path="/opt/var/minidlna" \
++	--with-log-path="/opt/var/minidlna" \
  
  define Package/minidlna/install
 -	$(INSTALL_DIR) $(1)/usr/bin

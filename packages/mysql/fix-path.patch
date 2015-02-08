@@ -5,25 +5,25 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/utils/mysq
  [client]
  port		= 3306
 -socket		= /var/run/mysqld.sock
-+socket		= /Apps/opt/var/run/mysqld.sock
++socket		= /opt/var/run/mysqld.sock
  
  [mysqld]
  user		= root
 -socket		= /var/run/mysqld.sock
-+socket		= /Apps/opt/var/run/mysqld.sock
++socket		= /opt/var/run/mysqld.sock
  port		= 3306
 -basedir		= /usr
-+basedir		= /Apps/opt
++basedir		= /opt
  
  ############ Don't put this on the NAND #############
  # Figure out where you are going to put the databases
  # And run mysql_install_db --force
 -datadir		= /mnt/data/mysql/
-+datadir		= /Apps/opt/var/
++datadir		= /opt/var/
  
  ######### This should also not go on the NAND #######
 -tmpdir		= /mnt/data/tmp/
-+tmpdir		= /Apps/opt/tmp/
++tmpdir		= /opt/tmp/
  
  skip-external-locking
  
@@ -32,14 +32,14 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/utils/mysq
  
  # Here you can see queries with especially long duration
 -#log_slow_queries	= /var/log/mysql/mysql-slow.log
-+#log_slow_queries	= /Apps/opt/var/log/mysql/mysql-slow.log
++#log_slow_queries	= /opt/var/log/mysql/mysql-slow.log
  #long_query_time = 2
  #log-queries-not-using-indexes
  
  # The following can be used as easy to replay backup logs or for replication.
  #server-id		= 1
 -#log_bin			= /var/log/mysql/mysql-bin.log
-+#log_bin			= /Apps/opt/var/log/mysql/mysql-bin.log
++#log_bin			= /opt/var/log/mysql/mysql-bin.log
  #expire_logs_days	= 10
  #max_binlog_size         = 100M
  #binlog_do_db		= include_database_name
@@ -82,15 +82,15 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/utils/mysq
 -	ln -sf $(STAGING_DIR)/usr/bin/mysql_config $(2)/bin/
 -	$(CP) $(PKG_INSTALL_DIR)/usr/include/mysql $(1)/usr/include/
 +	$(INSTALL_DIR) $(2)/bin $(1)/opt/bin $(1)/opt/include $(1)/opt/lib
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysql_config $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysql_config $(1)/opt/bin/
 +	ln -sf $(STAGING_DIR)/opt/bin/mysql_config $(2)/bin/
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/include/mysql $(1)/opt/include/
++	$(CP) $(PKG_INSTALL_DIR)/opt/include/mysql $(1)/opt/include/
  	# NOTE: needed for MySQL-Python
 -	$(CP) $(PKG_BUILD_DIR)/include/mysqld_error.h $(1)/usr/include/mysql/
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/mysql $(1)/usr/lib/
 -	rm -f $(1)/usr/lib/mysql/libmysqlclient.la
 +	$(CP) $(PKG_BUILD_DIR)/include/mysqld_error.h $(1)/opt/include/mysql/
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/mysql $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/mysql $(1)/opt/lib/
 +	rm -f $(1)/opt/lib/mysql/libmysqlclient.la
  endef
  
@@ -98,13 +98,13 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/utils/mysq
 -	$(INSTALL_DIR) $(1)/usr/lib
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/mysql/libmysqlclient.so.* $(1)/usr/lib/
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/mysql/libmysqlclient.so.* $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/mysql/libmysqlclient.so.* $(1)/opt/lib/
  endef
  define Package/libmysqlclient-r/install
 -	$(INSTALL_DIR) $(1)/usr/lib
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/mysql/libmysqlclient_r.so.* $(1)/usr/lib/
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/mysql/libmysqlclient_r.so.* $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/mysql/libmysqlclient_r.so.* $(1)/opt/lib/
  endef
  
  define Package/mysql-server/install
@@ -126,27 +126,27 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/utils/mysq
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/share/mysql/mysql_system_tables.sql $(1)/usr/share/mysql/
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/share/mysql/mysql_system_tables_data.sql $(1)/usr/share/mysql/
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysql $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/lib/mysqld $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/myisamchk $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysqladmin $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysqldump $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysql_install_db $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/my_print_defaults $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysql_upgrade $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/resolveip $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/mysqlcheck $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysql $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/lib/mysqld $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/myisamchk $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysqladmin $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysqldump $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysql_install_db $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/my_print_defaults $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysql_upgrade $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/resolveip $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mysqlcheck $(1)/opt/bin/
 +	$(INSTALL_DIR) $(1)/opt/etc/init.d/
 +	$(INSTALL_BIN) ./files/S70mysqld $(1)/opt/etc/init.d
 +	$(INSTALL_CONF) conf/my.cnf $(1)/opt/etc/
 +	$(INSTALL_DIR) $(1)/opt/share/mysql
 +	$(INSTALL_DIR) $(1)/opt/share/mysql/english
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/share/mysql/english/errmsg.sys $(1)/opt/share/mysql/english
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/share/mysql/fill_help_tables.sql $(1)/opt/share/mysql/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/share/mysql/mysql_system_tables.sql $(1)/opt/share/mysql/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/share/mysql/mysql_system_tables_data.sql $(1)/opt/share/mysql/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/share/mysql/english/errmsg.sys $(1)/opt/share/mysql/english
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/share/mysql/fill_help_tables.sql $(1)/opt/share/mysql/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/share/mysql/mysql_system_tables.sql $(1)/opt/share/mysql/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/share/mysql/mysql_system_tables_data.sql $(1)/opt/share/mysql/
 +	$(INSTALL_DIR) $(1)/opt/share/mysql/charsets
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/share/mysql/charsets/* $(1)/opt/share/mysql/charsets/
++	$(CP) $(PKG_INSTALL_DIR)/opt/share/mysql/charsets/* $(1)/opt/share/mysql/charsets/
  endef
  
  define Package/mysql-server/conffiles

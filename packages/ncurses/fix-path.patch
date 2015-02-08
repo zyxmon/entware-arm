@@ -5,7 +5,7 @@
  PKG_NAME:=ncurses
  PKG_VERSION:=5.9
 -PKG_RELEASE:=1
-+PKG_RELEASE:=1b
++PKG_RELEASE:=1a
  
  PKG_BUILD_DIR:=$(BUILD_DIR)/$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
  PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -42,13 +42,13 @@
  	--with-shared \
 -	--with-terminfo-dirs=/usr/share/terminfo \
 -	--with-default-terminfo-dir=/usr/share/terminfo
-+	--with-terminfo-dirs=/Apps/opt/share/terminfo \
-+	--with-default-terminfo-dir=/Apps/opt/share/terminfo
++	--with-terminfo-dirs=/opt/share/terminfo \
++	--with-default-terminfo-dir=/opt/share/terminfo
  
  ifeq ($(HOST_OS),FreeBSD)
  	CONFIGURE_ARGS +=
 -		--with-terminfo=/usr/share/terminfo.db 
-+		--with-terminfo=/Apps/opt/share/terminfo.db 
++		--with-terminfo=/opt/share/terminfo.db 
  endif
  
  ifeq ($(BUILD_VARIANT),libncursesw)
@@ -70,7 +70,7 @@
 +
 +define Package/ncurses-bin/install
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/bin/* $(1)/opt/bin/
++	$(CP) $(PKG_INSTALL_DIR)/opt/bin/* $(1)/opt/bin/
  endef
  
  define Package/terminfo/install
@@ -79,7 +79,7 @@
 -	$(INSTALL_DIR) $(1)/usr/share/terminfo
 -	(cd $(PKG_INSTALL_DIR)/usr/share/terminfo; \
 +	$(INSTALL_DIR) $(1)/opt/share/terminfo
-+	(cd $(PKG_INSTALL_DIR)/Apps/opt/share/terminfo; \
++	(cd $(PKG_INSTALL_DIR)/opt/share/terminfo; \
  		for dir in ??; do \
  			[ -d "$$$$dir" ] || continue; \
  			mv $$$$dir $$$$(echo -ne "\x$$$$dir"); \
@@ -91,7 +91,7 @@
 -			$(1)/usr/share/terminfo/$$$$file; \
 +	for file in a/ansi d/dumb l/linux r/rxvt r/rxvt-unicode s/screen s/screen-256color v/vt100 v/vt102 x/xterm x/xterm-color x/xterm-256color x/xterm-utf8; do \
 +		$(INSTALL_DIR) $(1)/opt/share/terminfo/`dirname $$$$file`; \
-+		$(CP) $(PKG_INSTALL_DIR)/Apps/opt/share/terminfo/$$$$file \
++		$(CP) $(PKG_INSTALL_DIR)/opt/share/terminfo/$$$$file \
 +			$(1)/opt/share/terminfo/$$$$file; \
  	done
  endif
@@ -100,21 +100,21 @@
 +define Package/terminfo/postinst
 +#!/bin/sh
 +
-+grep -q "^export TERMINFO" /Apps/opt/etc/profile || echo "export TERMINFO=/Apps/opt/share/terminfo" >> /Apps/opt/etc/profile
++grep -q "^export TERMINFO" /opt/etc/profile || echo "export TERMINFO=/opt/share/terminfo" >> /opt/etc/profile
 +endef
 +
  define Package/libncurses/install
 -	$(INSTALL_DIR) $(1)/usr/lib
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib{curses,ncurses,panel,menu,form}.so* $(1)/usr/lib/
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/lib{curses,ncurses,panel,menu,form}.so* $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib{curses,ncurses,panel,menu,form}.so* $(1)/opt/lib/
  endef
  
  define Package/libncursesw/install
 -	$(INSTALL_DIR) $(1)/usr/lib
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib{ncurses,panel,menu,form}w.so* $(1)/usr/lib/
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/lib{ncurses,panel,menu,form}w.so* $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib{ncurses,panel,menu,form}w.so* $(1)/opt/lib/
  endef
  
  ifeq ($(BUILD_VARIANT),libncursesw)
@@ -122,18 +122,18 @@
 -	$(INSTALL_DIR) $(1)/usr/include/ncursesw/
 -	$(CP) $(PKG_INSTALL_DIR)/usr/include/*.h $(1)/usr/include/ncursesw/
 +	$(INSTALL_DIR) $(1)/opt/include/ncursesw/
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/include/*.h $(1)/opt/include/ncursesw/
++	$(CP) $(PKG_INSTALL_DIR)/opt/include/*.h $(1)/opt/include/ncursesw/
  
 -	$(INSTALL_DIR) $(1)/usr/lib
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib{ncurses,panel,menu,form}w.{a,so*} $(1)/usr/lib/
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/lib{ncurses,panel,menu,form}w.{a,so*} $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib{ncurses,panel,menu,form}w.{a,so*} $(1)/opt/lib/
  
 -	$(INSTALL_DIR) $(1)/usr/bin $(2)/bin
 -	$(CP) $(PKG_INSTALL_DIR)/usr/bin/ncursesw5-config $(2)/bin/
 -	$(SED) 's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/usr,g' -e 's/$$$$INCS //g' \
 +	$(INSTALL_DIR) $(1)/opt/bin $(2)/bin
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/bin/ncursesw5-config $(2)/bin/
++	$(CP) $(PKG_INSTALL_DIR)/opt/bin/ncursesw5-config $(2)/bin/
 +	$(SED) 's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/opt,g' -e 's/$$$$INCS //g' \
  		$(2)/bin/ncursesw5-config
 -	$(LN) $(2)/bin/ncursesw5-config $(1)/usr/bin/ncursesw5-config
@@ -144,18 +144,18 @@
 -	$(INSTALL_DIR) $(1)/usr/include
 -	$(CP) $(PKG_INSTALL_DIR)/usr/include/*.h $(1)/usr/include/
 +	$(INSTALL_DIR) $(1)/opt/include
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/include/*.h $(1)/opt/include/
++	$(CP) $(PKG_INSTALL_DIR)/opt/include/*.h $(1)/opt/include/
  
 -	$(INSTALL_DIR) $(1)/usr/lib
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib{curses,ncurses,panel,menu,form}.{a,so*} $(1)/usr/lib/
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/lib{curses,ncurses,panel,menu,form}.{a,so*} $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lib{curses,ncurses,panel,menu,form}.{a,so*} $(1)/opt/lib/
  
 -	$(INSTALL_DIR) $(1)/usr/bin $(2)/bin
 -	$(CP) $(PKG_INSTALL_DIR)/usr/bin/ncurses5-config $(2)/bin/
 -	$(SED) 's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/usr,g' \
 +	$(INSTALL_DIR) $(1)/opt/bin $(2)/bin
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/bin/ncurses5-config $(2)/bin/
++	$(CP) $(PKG_INSTALL_DIR)/opt/bin/ncurses5-config $(2)/bin/
 +	$(SED) 's,^\(prefix\|exec_prefix\)=.*,\1=$(STAGING_DIR)/opt,g' \
  		$(2)/bin/ncurses5-config
 -	$(LN) $(2)/bin/ncurses5-config $(1)/usr/bin/ncurses5-config

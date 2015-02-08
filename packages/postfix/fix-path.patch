@@ -33,22 +33,22 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/mail/postf
 -data_directory=/usr/var/lib/postfix
 -queue_directory=/usr/var/spool/postfix
 -mail_spool_directory=/usr/var/mail
-+config_directory=/Apps/opt/etc/postfix# also add this to postfix init file
-+sample_directory=/Apps/opt/etc/postfix
-+command_directory=/Apps/opt/sbin
-+daemon_directory=/Apps/opt/libexec/postfix
-+data_directory=/Apps/opt/var/lib/postfix
-+queue_directory=/Apps/opt/var/spool/postfix
-+mail_spool_directory=/Apps/opt/var/mail
++config_directory=/opt/etc/postfix# also add this to postfix init file
++sample_directory=/opt/etc/postfix
++command_directory=/opt/sbin
++daemon_directory=/opt/libexec/postfix
++data_directory=/opt/var/lib/postfix
++queue_directory=/opt/var/spool/postfix
++mail_spool_directory=/opt/var/mail
  html_directory=no
  manpage_directory=no
  readme_directory=no
 -sendmail_path=/usr/sbin/sendmail
 -newaliases_path=/usr/bin/newaliases
 -mailq_path=/usr/bin/mailq
-+sendmail_path=/Apps/opt/sbin/sendmail
-+newaliases_path=/Apps/opt/bin/newaliases
-+mailq_path=/Apps/opt/bin/mailq
++sendmail_path=/opt/sbin/sendmail
++newaliases_path=/opt/bin/newaliases
++mailq_path=/opt/bin/mailq
  
  ln_suffix=.postfix
  ln_old_suffix=.old
@@ -127,11 +127,11 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/mail/postf
 - fi
 +	cd $(PKG_BUILD_DIR); $(MAKE) install_root=$(PKG_INSTALL_DIR)  command_directory=$(command_directory) daemon_directory=$(daemon_directory) data_directory=$(data_directory) html_directory=$(html_directory) mail_owner=postfix mailq_path=$(mailq_path)$(ln_suffix) manpage_directory=$(manpage_directory) newaliases_path=$(newaliases_path)$(ln_suffix) queue_directory=$(queue_directory) readme_directory=$(readme_directory) sendmail_path=$(sendmail_path)$(ln_suffix) setgid_group=postdrop sample_directory=$(sample_directory) config_directory=$(config_directory) non-interactive-package
 +	$(INSTALL_DIR) $(1)/opt
-+	cp -rf $(PKG_INSTALL_DIR)/Apps/opt/* $(1)/opt
++	cp -rf $(PKG_INSTALL_DIR)/opt/* $(1)/opt
 +	$(RM) $(1)/opt/bin/mailq.postfix
 +	$(RM) $(1)/opt/bin/newaliases.postfix
-+	ln -s /Apps/opt/sbin/sendmail.postfix $(1)/opt/bin/mailq.postfix
-+	ln -s /Apps/opt/sbin/sendmail.postfix $(1)/opt/bin/newaliases.postfix	
++	ln -s /opt/sbin/sendmail.postfix $(1)/opt/bin/mailq.postfix
++	ln -s /opt/sbin/sendmail.postfix $(1)/opt/bin/newaliases.postfix	
 +	$(INSTALL_DIR) $(1)/opt/var/mail
 +	$(INSTALL_DIR) $(1)/opt/etc/init.d/
 +	$(INSTALL_BIN) ./files/S69postfix $(1)/opt/etc/init.d/
@@ -158,7 +158,7 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/mail/postf
   #define NATIVE_DB_TYPE	"hash"
  -#define ALIAS_DB_MAP	DEF_DB_TYPE ":/etc/aliases"
 -+#define ALIAS_DB_MAP	DEF_DB_TYPE ":/etc/postfix/aliases"
-++#define ALIAS_DB_MAP	DEF_DB_TYPE ":/Apps/opt/etc/postfix/aliases"
+++#define ALIAS_DB_MAP	DEF_DB_TYPE ":/opt/etc/postfix/aliases"
   #ifndef NO_NIS
   #define HAS_NIS
   #endif

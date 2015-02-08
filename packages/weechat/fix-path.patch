@@ -72,13 +72,13 @@
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/weechat-curses $(1)/usr/bin/
 -	$(INSTALL_DIR) $(1)/usr/lib/weechat/plugins
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/weechat-curses $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/weechat-curses $(1)/opt/bin/
 +	ln -sf weechat-curses $(1)/opt/bin/weechat
 +	$(INSTALL_DIR) $(1)/opt/lib/weechat/plugins
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/weechat/plugins/* \
 -		$(1)/usr/lib/weechat/plugins/
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/weechat/plugins/* \
++		$(PKG_INSTALL_DIR)/opt/lib/weechat/plugins/* \
 +		$(1)/opt/lib/weechat/plugins/
  endef
  

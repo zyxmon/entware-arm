@@ -2,11 +2,11 @@
 
 ENABLED=yes
 PROCS=xl2tpd
-ARGS="-p /Apps/opt/var/run/xl2tpd.pid"
+ARGS="-p /opt/var/run/xl2tpd.pid"
 PREARGS=""
 DESC=$PROCS
-PATH=/Apps/opt/sbin:/Apps/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 iptables -I INPUT -p tcp --dport 1701 -j ACCEPT
 
-. /Apps/opt/etc/init.d/rc.func
+. /opt/etc/init.d/rc.func

@@ -4,7 +4,7 @@ case "$1" in
     start)
 	echo "starting service postfix"
 	
-	/Apps/opt/sbin/postfix -c /Apps/opt/etc/postfix start
+	/opt/sbin/postfix -c /opt/etc/postfix start
 
 	# waiting for qmgr
 	( i=60
@@ -12,18 +12,18 @@ case "$1" in
 		i=$(( $i - 1 ))
 		sleep 1
 	    done
-	    echo /Apps/opt/sbin/postfix flush
+	    echo /opt/sbin/postfix flush
 	) > /dev/null 2>&1 &
 	;;
     stop)
 	echo "stopping service postfix"
 	
-	#if [ -f "/Apps/opt/var/spool/postfix/pid/master.pid" ]; then
-	#    /bin/kill -TERM `cat /Apps/opt/var/spool/postfix/pid/master.pid` 2>/dev/null
+	#if [ -f "/opt/var/spool/postfix/pid/master.pid" ]; then
+	#    /bin/kill -TERM `cat /opt/var/spool/postfix/pid/master.pid` 2>/dev/null
 	#fi
 	
 	if [ -n "`pidof master`" ]; then
-	    /Apps/opt/sbin/postfix -c /Apps/opt/etc/postfix stop > /dev/null 2>&1
+	    /opt/sbin/postfix -c /opt/etc/postfix stop > /dev/null 2>&1
 	fi
 	;;
     restart)

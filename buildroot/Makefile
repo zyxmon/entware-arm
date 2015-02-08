@@ -10,11 +10,11 @@ include ../config.mk
 
 all: .buildroot_prepared
 
-.buildroot_prepared: $(TOP)/downloads/openwrt_trunk-r$(OPENWRT_REVISION)
+.buildroot_prepared: $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION)
 	if [ ! -d "$(TOP)/openwrt_trunk" ]; \
 	then \
 	    mkdir $(TOP)/openwrt_trunk; \
-	    cp -fr $(TOP)/downloads/openwrt_trunk-r$(OPENWRT_REVISION)/* $(TOP)/openwrt_trunk; \
+	    cp -fr $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION)/* $(TOP)/openwrt_trunk; \
 	fi
 	@echo "Adding new targets..."
 	cp -fr ./targets/* ../../openwrt_trunk/target/linux
@@ -28,7 +28,7 @@ all: .buildroot_prepared
 	make -C ../switch-arch $(TARGET)
 	@touch $@
 
-$(TOP)/downloads/openwrt_trunk-r$(OPENWRT_REVISION): \
+$(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION): \
 	    $(TOP)/downloads
 	svn co --revision=$(OPENWRT_REVISION) svn://svn.openwrt.org/openwrt/trunk/ $(TOP)/openwrt_trunk
 	cp -f feeds.conf $(TOP)/openwrt_trunk
@@ -38,9 +38,9 @@ $(TOP)/downloads/openwrt_trunk-r$(OPENWRT_REVISION): \
 		./scripts/feeds update $$feed; \
 		./scripts/feeds install -a -p $$feed; \
 	    done)
-	mkdir -p $(TOP)/downloads/openwrt_trunk-r$(OPENWRT_REVISION)
+	mkdir -p $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION)
 	ln -sf $(TOP)/downloads $(TOP)/openwrt_trunk/dl
-	cp -fr $(TOP)/openwrt_trunk/* $(TOP)/downloads/openwrt_trunk-r$(OPENWRT_REVISION)
+	cp -fr $(TOP)/openwrt_trunk/* $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION)
 
 $(TOP)/downloads:
 	[ -d "$(TOP)/downloads" ] || mkdir -p "$(TOP)/downloads"

@@ -40,8 +40,8 @@
 -endef
 +CONFIGURE_ARGS += \
 +	--without-iconv \
-+	--with-gitconfig=/Apps/opt/etc/gitconfig \
-+	--with-gitattributes=/Apps/opt/etc/gitattributes \
++	--with-gitconfig=/opt/etc/gitconfig \
++	--with-gitattributes=/opt/etc/gitattributes \
 +	--without-python \
 +	--without-tcltk \
 +
@@ -56,12 +56,10 @@
  define Package/git/install
  	$(INSTALL_DIR) $(1)
 -	$(RM) $(PKG_INSTALL_DIR)/usr/bin/git-cvsserver
--	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
 +	for app in git git-cvsserver git-shell git-upload-pack; do \
-+	    $(RM) $(PKG_INSTALL_DIR)/Apps/opt/bin/$$$${app} ; \
-+	    $(LN) -s /Apps/opt/lib/git-core/$$$${app} $(PKG_INSTALL_DIR)/Apps/opt/bin/$$$${app} ; \
++	    $(RM) $(PKG_INSTALL_DIR)/opt/bin/$$$${app} ; \
++	    $(LN) -s /opt/lib/git-core/$$$${app} $(PKG_INSTALL_DIR)/opt/bin/$$$${app} ; \
 +	done
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/* $(1)/
+ 	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
  endef
  
- $(eval $(call BuildPackage,git))

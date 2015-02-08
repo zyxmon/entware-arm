@@ -205,8 +205,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/apc
  	$(call Build/Configure/Default, \
  		--with-distname=unknown \
 -		--sysconfdir=/etc/apcupsd \
-+		--sysconfdir=/Apps/opt/etc/apcupsd \
-+		--with-halpolicydir=/Apps/opt/share/hal/fdi/policy/20thirdparty \
++		--sysconfdir=/opt/etc/apcupsd \
++		--with-halpolicydir=/opt/share/hal/fdi/policy/20thirdparty \
  		--enable-usb \
  		--without-x \
  	)
@@ -231,10 +231,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/apc
 -	$(INSTALL_DIR) $(1)/etc/init.d
 -	$(INSTALL_BIN)	./files/apcupsd.init $(1)/etc/init.d/apcupsd
 +	$(INSTALL_DIR) $(1)/opt/sbin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/apcupsd $(1)/opt/sbin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/smtp $(1)/opt/sbin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/apctest $(1)/opt/sbin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/apcaccess $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/apcupsd $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/smtp $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/apctest $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/apcaccess $(1)/opt/sbin/
 +	$(INSTALL_DIR) $(1)/opt/etc/apcupsd
 +	$(INSTALL_CONF) ./files/apcupsd.conf $(1)/opt/etc/apcupsd/
 +	$(INSTALL_CONF) ./files/apcupsd_mail.conf $(1)/opt/etc/apcupsd/

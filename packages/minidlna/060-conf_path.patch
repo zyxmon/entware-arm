@@ -5,7 +5,7 @@
  	struct sigaction sa;
  	const char * presurl = NULL;
 -	const char * optionsfile = "/etc/minidlna.conf";
-+	const char * optionsfile = "/Apps/opt/etc/minidlna.conf";
++	const char * optionsfile = "/opt/etc/minidlna.conf";
  	char mac_str[13];
  	char *string, *word;
  	char *path;
@@ -16,7 +16,7 @@
  uint32_t runtime_flags = INOTIFY_MASK;
  
 -const char *pidfilename = "/var/run/minidlna/minidlna.pid";
-+const char *pidfilename = "/Apps/opt/var/minidlna/minidlna.pid";
++const char *pidfilename = "/opt/var/minidlna/minidlna.pid";
  
  char uuidvalue[] = "uuid:00000000-0000-0000-0000-000000000000";
  char modelname[MODELNAME_MAX_LEN] = ROOTDEV_MODELNAME;
@@ -25,7 +25,7 @@
  
  /* Path of the Unix socket used to communicate with MiniSSDPd */
 -const char * minissdpdsocketpath = "/var/run/minissdpd.sock";
-+const char * minissdpdsocketpath = "/Apps/opt/var/minidlna/minissdpd.sock";
++const char * minissdpdsocketpath = "/opt/var/minidlna/minissdpd.sock";
  
  /* UPnP-A/V [DLNA] */
  sqlite3 *db;

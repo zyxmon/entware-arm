@@ -51,10 +51,10 @@
  CONFIGURE_ARGS+= \
  	$(DISABLE_NLS) \
 -	--sysconfdir=/etc/ssh \
-+	--sysconfdir=/Apps/opt/etc/ssh \
++	--sysconfdir=/opt/etc/ssh \
  	--with-privsep-user=sshd \
 -	--with-privsep-path=/var/empty \
-+	--with-privsep-path=/Apps/opt/var/empty \
++	--with-privsep-path=/opt/var/empty \
  	--enable-shared \
  	--disable-static \
  	--disable-debug \
@@ -93,7 +93,7 @@
 -	$(INSTALL_DIR) $(1)/etc/ssh
 -	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/ssh/moduli $(1)/etc/ssh/
 +	$(INSTALL_DIR) $(1)/opt/etc/ssh
-+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/Apps/opt/etc/ssh/moduli $(1)/opt/etc/ssh/
++	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/etc/ssh/moduli $(1)/opt/etc/ssh/
  endef
  
  define Package/openssh-client/install
@@ -105,10 +105,10 @@
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/scp $(1)/usr/bin/
 +	$(INSTALL_DIR) $(1)/opt/etc/ssh
 +	chmod 0700 $(1)/opt/etc/ssh
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/etc/ssh/ssh_config $(1)/opt/etc/ssh/
++	$(CP) $(PKG_INSTALL_DIR)/opt/etc/ssh/ssh_config $(1)/opt/etc/ssh/
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/ssh $(1)/opt/bin/
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/scp $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ssh $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/scp $(1)/opt/bin/
  endef
  
  define Package/openssh-client-utils/install
@@ -122,7 +122,7 @@
 -	$(INSTALL_DIR) $(1)/usr/bin
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/ssh-keygen $(1)/usr/bin/
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/ssh-keygen $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/ssh-keygen $(1)/opt/bin/
  endef
  
  define Package/openssh-server/install
@@ -135,11 +135,11 @@
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/sshd $(1)/usr/sbin/
 +	$(INSTALL_DIR) $(1)/opt/etc/ssh
 +	chmod 0700 $(1)/opt/etc/ssh
-+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/Apps/opt/etc/ssh/sshd_config $(1)/opt/etc/ssh/
++	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/etc/ssh/sshd_config $(1)/opt/etc/ssh/
 +	$(INSTALL_DIR) $(1)/opt/etc/init.d
 +	$(INSTALL_BIN) ./files/S40sshd $(1)/opt/etc/init.d/
 +	$(INSTALL_DIR) $(1)/opt/sbin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/sshd $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/sshd $(1)/opt/sbin/
  endef
  
  define Package/openssh-server-pam/install
@@ -162,7 +162,7 @@
 -	$(INSTALL_DIR) $(1)/usr/bin
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/sftp $(1)/usr/bin/
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/bin/sftp $(1)/opt/bin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/sftp $(1)/opt/bin/
  endef
  
  define Package/openssh-sftp-server/install
@@ -171,7 +171,7 @@
 -	$(INSTALL_DIR) $(1)/usr/libexec
 -	ln -sf ../lib/sftp-server $(1)/usr/libexec/sftp-server
 +	$(INSTALL_DIR) $(1)/opt/lib
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/sftp-server $(1)/opt/lib/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/sftp-server $(1)/opt/lib/
 +	$(INSTALL_DIR) $(1)/opt/libexec
 +	ln -sf ../lib/sftp-server $(1)/opt/libexec/sftp-server
  endef

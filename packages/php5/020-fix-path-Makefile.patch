@@ -6,8 +6,8 @@
  	\
 -	--with-config-file-path=/etc \
 -	--with-config-file-scan-dir=/etc/php5 \
-+	--with-config-file-path=/Apps/opt/etc \
-+	--with-config-file-scan-dir=/Apps/opt/etc/php5 \
++	--with-config-file-path=/opt/etc \
++	--with-config-file-scan-dir=/opt/etc/php5 \
  	--disable-short-tags \
  	\
 -	--with-zlib="$(STAGING_DIR)/usr" \

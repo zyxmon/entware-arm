@@ -20,11 +20,11 @@
 -			--etcdir=/etc/bitlbee/ \
 -			--datadir=/usr/share/bitlbee/ \
 -			--config=/var/lib/bitlbee/ \
-+			--prefix=/Apps/opt/ \
-+			--bindir=/Apps/opt/sbin/ \
-+			--etcdir=/Apps/opt/etc/bitlbee/ \
-+			--datadir=/Apps/opt/share/bitlbee/ \
-+			--config=/Apps/opt/var/lib/bitlbee/ \
++			--prefix=/opt/ \
++			--bindir=/opt/sbin/ \
++			--etcdir=/opt/etc/bitlbee/ \
++			--datadir=/opt/share/bitlbee/ \
++			--config=/opt/var/lib/bitlbee/ \
  			--arch=OpenWrt \
  			--cpu="$(ARCH)" \
  			--debug=0 \
@@ -46,9 +46,9 @@
  		$(PKG_BUILD_DIR)/Makefile.settings
  	@echo 'LFLAGS+=-L$(ICONV_PREFIX)/lib' >> \
  		$(PKG_BUILD_DIR)/Makefile.settings
-+	$(SED) 's|-Wl,-rpath,/Apps/opt/lib||g'\
++	$(SED) 's|-Wl,-rpath,/opt/lib||g'\
 +		$(PKG_BUILD_DIR)/Makefile.settings
-+	$(SED) 's|-Wl,--dynamic-linker=/Apps/opt/lib/ld-linux.so.[0-9]||g'\
++	$(SED) 's|-Wl,--dynamic-linker=/opt/lib/ld-linux.so.[0-9]||g'\
 +		$(PKG_BUILD_DIR)/Makefile.settings
 +	$(SED) 's|-Wl,-rpath-link=$(STAGING_DIR)/opt/lib||g'\
 +		$(PKG_BUILD_DIR)/Makefile.settings
@@ -69,7 +69,7 @@
 -	$(INSTALL_BIN) ./files/bitlbee.init $(1)/etc/init.d/bitlbee
 +		DESTDIR="$(PKG_INSTALL_DIR)" install
 +	$(INSTALL_DIR) $(1)/opt
-+	cp -r $(PKG_INSTALL_DIR)/Apps/opt/* $(1)/opt
++	cp -r $(PKG_INSTALL_DIR)/opt/* $(1)/opt
 +	$(INSTALL_DIR) $(1)/opt/etc/init.d
 +	$(INSTALL_BIN) ./files/S72bitlbee $(1)/opt/etc/init.d
  endef

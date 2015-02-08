@@ -2,9 +2,9 @@
 
 ENABLED=yes
 PROCS=pptpd
-ARGS="-b br0 -c /Apps/opt/etc/pptpd.conf"
+ARGS="-b br0 -c /opt/etc/pptpd.conf"
 PREARGS=""
 DESC=$PROCS
-PATH=/Apps/opt/sbin:/Apps/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-. /Apps/opt/etc/init.d/rc.func
+. /opt/etc/init.d/rc.func

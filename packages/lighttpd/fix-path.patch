@@ -6,14 +6,14 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lightt
  )
  
 -server.document-root        = "/www"
-+server.document-root        = "/Apps/opt/share/www"
++server.document-root        = "/opt/share/www"
  server.upload-dirs          = ( "/tmp" )
 -server.errorlog             = "/var/log/lighttpd/error.log"
 -server.pid-file             = "/var/run/lighttpd.pid"
 -server.username             = "http"
 -server.groupname            = "www-data"
-+server.errorlog             = "/Apps/opt/var/log/lighttpd/error.log"
-+server.pid-file             = "/Apps/opt/var/run/lighttpd.pid"
++server.errorlog             = "/opt/var/log/lighttpd/error.log"
++server.pid-file             = "/opt/var/run/lighttpd.pid"
 +#server.username             = "http"
 +#server.groupname            = "www-data"
  
@@ -24,15 +24,15 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lightt
  
  ### Use IPv6 if available
 -#include_shell "/usr/share/lighttpd/use-ipv6.pl"
-+#include_shell "/Apps/opt/share/lighttpd/use-ipv6.pl"
++#include_shell "/opt/share/lighttpd/use-ipv6.pl"
  
  #dir-listing.encoding        = "utf-8"
  #server.dir-listing          = "enable"
  
 -include       "/etc/lighttpd/mime.conf"
 -include_shell "cat /etc/lighttpd/conf.d/*.conf"
-+include       "/Apps/opt/etc/lighttpd/mime.conf"
-+include_shell "cat /Apps/opt/etc/lighttpd/conf.d/*.conf"
++include       "/opt/etc/lighttpd/mime.conf"
++include_shell "cat /opt/etc/lighttpd/conf.d/*.conf"
 diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lighttpd/Makefile ../../../openwrt_trunk/feeds/packages/net/lighttpd/Makefile
 --- ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lighttpd/Makefile	2014-11-07 23:35:24.532584012 +0300
 +++ ../../../openwrt_trunk/feeds/packages/net/lighttpd/Makefile	2014-11-28 21:18:46.453588542 +0300
@@ -42,8 +42,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lightt
  CONFIGURE_ARGS+= \
 -	--libdir=/usr/lib/lighttpd \
 -	--sysconfdir=/etc/lighttpd \
-+	--libdir=/Apps/opt/lib/lighttpd \
-+	--sysconfdir=/Apps/opt/etc/lighttpd \
++	--libdir=/opt/lib/lighttpd \
++	--sysconfdir=/opt/etc/lighttpd \
  	--enable-shared \
  	--enable-static \
  	--disable-rpath \
@@ -97,12 +97,12 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lightt
 +	$(INSTALL_DIR) $(1)/opt/lib/lighttpd
  	for m in dirlisting indexfile staticfile; do \
 -		$(CP) $(PKG_INSTALL_DIR)/usr/lib/lighttpd/mod_$$$${m}.so $(1)/usr/lib/lighttpd/ ; \
-+		$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/lighttpd/mod_$$$${m}.so $(1)/opt/lib/lighttpd/ ; \
++		$(CP) $(PKG_INSTALL_DIR)/opt/lib/lighttpd/mod_$$$${m}.so $(1)/opt/lib/lighttpd/ ; \
  	done
 -	$(INSTALL_DIR) $(1)/usr/sbin
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/lighttpd $(1)/usr/sbin/
 +	$(INSTALL_DIR) $(1)/opt/sbin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/lighttpd $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/lighttpd $(1)/opt/sbin/
 +	$(INSTALL_DIR) $(1)/opt/share/www $(1)/opt/var/log/lighttpd
  endef
  
@@ -115,7 +115,7 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/lightt
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lighttpd/mod_$(1).so $$(1)/usr/lib/lighttpd
 -	$(INSTALL_DIR) $$(1)/etc/lighttpd/conf.d
 +	$(INSTALL_DIR) $$(1)/opt/lib/lighttpd
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/lighttpd/mod_$(1).so $$(1)/opt/lib/lighttpd
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/lighttpd/mod_$(1).so $$(1)/opt/lib/lighttpd
 +	$(INSTALL_DIR) $$(1)/opt/etc/lighttpd/conf.d
  	if [ -f $(PKG_BUILD_DIR)/doc/config/conf.d/$(1).conf ]; then \
 -		$(CP) $(PKG_BUILD_DIR)/doc/config/conf.d/$(1).conf $$(1)/etc/lighttpd/conf.d/$(4)-$(1).conf ; \

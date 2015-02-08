@@ -29,8 +29,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/nginx/
  			--crossbuild=Linux::$(ARCH) \
 -			--prefix=/usr \
 -			--conf-path=/etc/nginx/nginx.conf \
-+			--prefix=/Apps/opt \
-+			--conf-path=/Apps/opt/etc/nginx/nginx.conf \
++			--prefix=/opt \
++			--conf-path=/opt/etc/nginx/nginx.conf \
  			$(ADDITIONAL_MODULES) \
 -			--error-log-path=/var/log/nginx/error.log \
 -			--pid-path=/var/run/nginx.pid \
@@ -39,15 +39,15 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/nginx/
 -			--http-client-body-temp-path=/var/lib/nginx/body \
 -			--http-proxy-temp-path=/var/lib/nginx/proxy \
 -			--http-fastcgi-temp-path=/var/lib/nginx/fastcgi \
-+			--error-log-path=/Apps/opt/var/log/nginx/error.log \
-+			--pid-path=/Apps/opt/var/run/nginx.pid \
-+			--lock-path=/Apps/opt/var/lock/nginx.lock \
-+			--http-log-path=/Apps/opt/var/log/nginx/access.log \
-+			--http-client-body-temp-path=/Apps/opt/var/lib/nginx/body \
-+			--http-proxy-temp-path=/Apps/opt/var/lib/nginx/proxy \
-+			--http-fastcgi-temp-path=/Apps/opt/var/lib/nginx/fastcgi \
-+			--http-uwsgi-temp-path=/Apps/opt/var/lib/nginx/uwsgi \
-+			--http-scgi-temp-path=/Apps/opt/var/lib/nginx/scgi \
++			--error-log-path=/opt/var/log/nginx/error.log \
++			--pid-path=/opt/var/run/nginx.pid \
++			--lock-path=/opt/var/lock/nginx.lock \
++			--http-log-path=/opt/var/log/nginx/access.log \
++			--http-client-body-temp-path=/opt/var/lib/nginx/body \
++			--http-proxy-temp-path=/opt/var/lib/nginx/proxy \
++			--http-fastcgi-temp-path=/opt/var/lib/nginx/fastcgi \
++			--http-uwsgi-temp-path=/opt/var/lib/nginx/uwsgi \
++			--http-scgi-temp-path=/opt/var/lib/nginx/scgi \
  			--with-cc="$(TARGET_CC)" \
  			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
  			--with-ld-opt="$(TARGET_LDFLAGS)" )
@@ -61,13 +61,13 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43718/feeds/packages/net/nginx/
 -	$(INSTALL_DIR) $(1)/etc/init.d
 -	$(INSTALL_BIN) ./files/nginx.init $(1)/etc/init.d/nginx
 +	$(INSTALL_DIR) $(1)/opt/sbin
-+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/Apps/opt/sbin/nginx $(1)/opt/sbin/
++	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/opt/sbin/
 +	$(INSTALL_DIR) $(1)/opt/etc/nginx
-+	$(INSTALL_DATA) $(addprefix $(PKG_INSTALL_DIR)/Apps/opt/etc/nginx/,$(config_files)) $(1)/opt/etc/nginx/
++	$(INSTALL_DATA) $(addprefix $(PKG_INSTALL_DIR)/opt/etc/nginx/,$(config_files)) $(1)/opt/etc/nginx/
 +	$(INSTALL_DIR) $(1)/opt/etc/init.d
 +	$(INSTALL_BIN) ./files/S80nginx $(1)/opt/etc/init.d
 +	$(INSTALL_DIR) $(1)/opt/share/nginx/html
-+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/Apps/opt/html/{index,50x}.html $(1)/opt/share/nginx/html
++	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/{index,50x}.html $(1)/opt/share/nginx/html
 +	$(INSTALL_DIR) $(1)/opt/var/{run,lock}
 +	$(INSTALL_DIR) $(1)/opt/var/log/nginx
 +	$(INSTALL_DIR) $(1)/opt/var/lib/nginx/{body,proxy,fastcgi}

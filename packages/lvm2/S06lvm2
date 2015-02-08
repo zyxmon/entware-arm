@@ -1,17 +1,17 @@
 #!/bin/sh
 
-prefix="/Apps/opt"
+prefix="/opt"
 PATH=${prefix}/bin:${prefix}/sbin:/sbin:/bin:/usr/sbin:/usr/bin
 
 start() {
 	echo "starting lvm..."
-	/Apps/opt/sbin/lvm vgscan --ignorelockingfailure --mknodes || :
-	/Apps/opt/sbin/lvm vgchange -aly --ignorelockingfailure || echo "...failed"
+	/opt/sbin/lvm vgscan --ignorelockingfailure --mknodes || :
+	/opt/sbin/lvm vgchange -aly --ignorelockingfailure || echo "...failed"
 	}
 
 stop() {
 	echo "stopping lvm..."
-	/Apps/opt/sbin/lvm vgchange -aln --ignorelockingfailure || echo "...failed"
+	/opt/sbin/lvm vgchange -aln --ignorelockingfailure || echo "...failed"
 	}
 status() {
 	echo "PID of lvm is `pidof lvm`"

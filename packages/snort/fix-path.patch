@@ -5,7 +5,7 @@ diff -Nurx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/sn
  #!/bin/sh
  
 -exec snort.bin --daq-dir /usr/lib/daq/ $*
-+exec snort.bin --daq-dir /Apps/opt/lib/daq/ $*
++exec snort.bin --daq-dir /opt/lib/daq/ $*
 diff -Nurx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/snort/Makefile ../../../openwrt_trunk/feeds/oldpackages/net/snort/Makefile
 --- ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/snort/Makefile	2014-11-07 23:35:24.459628211 +0300
 +++ ../../../openwrt_trunk/feeds/oldpackages/net/snort/Makefile	2014-11-28 12:03:31.671092446 +0300
@@ -39,7 +39,7 @@ diff -Nurx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/sn
  
  CONFIGURE_ARGS += \
 -	--prefix="/usr" \
-+	--prefix="/Apps/opt" \
++	--prefix="/opt" \
  	--enable-flexresp \
 -	--with-dnet-includes="$(STAGING_DIR)/usr/include" \
 -	--with-dnet-libraries="$(STAGING_DIR)/usr/lib" \
@@ -94,27 +94,27 @@ diff -Nurx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/sn
 -		$(PKG_INSTALL_DIR)/usr/include/snort/dynamic_preproc/* \
 -		$(STAGING_DIR)/usr/include/snort/dynamic_preproc/
 -	$(INSTALL_DIR) $(STAGING_DIR)/usr/lib/snort/dynamic_preproc
-+		$(PKG_INSTALL_DIR)/Apps/opt/include/snort/dynamic_preproc/* \
++		$(PKG_INSTALL_DIR)/opt/include/snort/dynamic_preproc/* \
 +		$(STAGING_DIR)/opt/include/snort/dynamic_preproc/
 +	$(INSTALL_DIR) $(STAGING_DIR)/opt/lib/snort/dynamic_preproc
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/snort/dynamic_preproc/* \
 -		$(STAGING_DIR)/usr/lib/snort/dynamic_preproc/
 -	$(INSTALL_DIR) $(STAGING_DIR)/usr/lib/snort_dynamicengine
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/snort/dynamic_preproc/* \
++		$(PKG_INSTALL_DIR)/opt/lib/snort/dynamic_preproc/* \
 +		$(STAGING_DIR)/opt/lib/snort/dynamic_preproc/
 +	$(INSTALL_DIR) $(STAGING_DIR)/opt/lib/snort_dynamicengine
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/snort_dynamicengine/* \
 -		$(STAGING_DIR)/usr/lib/snort_dynamicengine/
 -	$(INSTALL_DIR) $(STAGING_DIR)/usr/lib/snort_dynamicpreprocessor
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/snort_dynamicengine/* \
++		$(PKG_INSTALL_DIR)/opt/lib/snort_dynamicengine/* \
 +		$(STAGING_DIR)/opt/lib/snort_dynamicengine/
 +	$(INSTALL_DIR) $(STAGING_DIR)/opt/lib/snort_dynamicpreprocessor
  	$(CP) \
 -		$(PKG_INSTALL_DIR)/usr/lib/snort_dynamicpreprocessor/* \
 -		$(STAGING_DIR)/usr/lib/snort_dynamicpreprocessor/
-+		$(PKG_INSTALL_DIR)/Apps/opt/lib/snort_dynamicpreprocessor/* \
++		$(PKG_INSTALL_DIR)/opt/lib/snort_dynamicpreprocessor/* \
 +		$(STAGING_DIR)/opt/lib/snort_dynamicpreprocessor/
  endef
  
@@ -152,13 +152,13 @@ diff -Nurx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/sn
 -	$(INSTALL_DIR) $(1)/etc/init.d
 -	$(INSTALL_BIN) ./files/snort.init $(1)/etc/init.d/snort
 +	$(INSTALL_DIR) $(1)/opt/bin
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/bin/snort $(1)/opt/bin/snort.bin
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/bin/u2{boat,spewfoo} $(1)/opt/bin
++	$(CP) $(PKG_INSTALL_DIR)/opt/bin/snort $(1)/opt/bin/snort.bin
++	$(CP) $(PKG_INSTALL_DIR)/opt/bin/u2{boat,spewfoo} $(1)/opt/bin
 +	$(INSTALL_BIN) ./files/snort.bin $(1)/opt/bin/snort
 +	$(INSTALL_DIR) $(1)/opt/lib/snort_dynamicengine
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/snort_dynamicengine/libsf_engine.so* $(1)/opt/lib/snort_dynamicengine/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/snort_dynamicengine/libsf_engine.so* $(1)/opt/lib/snort_dynamicengine/
 +	$(INSTALL_DIR) $(1)/opt/lib/snort_dynamicpreprocessor
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/snort_dynamicpreprocessor/libsf*.so* $(1)/opt/lib/snort_dynamicpreprocessor/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/snort_dynamicpreprocessor/libsf*.so* $(1)/opt/lib/snort_dynamicpreprocessor/
 +	$(INSTALL_DIR) $(1)/opt/etc/snort
 +	$(INSTALL_DATA) $(PKG_BUILD_DIR)/etc/snort.conf $(1)/opt/etc/snort/
 +	$(INSTALL_DATA) $(PKG_BUILD_DIR)/etc/attribute_table.dtd $(1)/opt/etc/snort/
@@ -229,21 +229,21 @@ diff -Nurx .svn ../../../downloads/openwrt_trunk-r43718/feeds/oldpackages/net/sn
 -+#! dynamicpreprocessor directory /usr/local/lib/snort_dynamicpreprocessor/
 -+dynamicpreprocessor directory /usr/lib/snort_dynamicpreprocessor/
 ++#! dynamicpreprocessor directory /opt/local/lib/snort_dynamicpreprocessor/
-++dynamicpreprocessor directory /Apps/opt/lib/snort_dynamicpreprocessor/
+++dynamicpreprocessor directory /opt/lib/snort_dynamicpreprocessor/
   
   # path to base preprocessor engine
  -dynamicengine /usr/local/lib/snort_dynamicengine/libsf_engine.so
 -+#! dynamicengine /usr/local/lib/snort_dynamicengine/libsf_engine.so
 -+#! dynamicengine /usr/lib/snort_dynamicengine/libsf_engine.so #! disabled for performance reasons
-++#! dynamicengine /Apps/opt/local/lib/snort_dynamicengine/libsf_engine.so
-++#! dynamicengine /Apps/opt/lib/snort_dynamicengine/libsf_engine.so #! disabled for performance reasons
+++#! dynamicengine /opt/local/lib/snort_dynamicengine/libsf_engine.so
+++#! dynamicengine /opt/lib/snort_dynamicengine/libsf_engine.so #! disabled for performance reasons
   
   # path to dynamic rules libraries
  -dynamicdetection directory /usr/local/lib/snort_dynamicrules
 -+#! dynamicdetection directory /usr/local/lib/snort_dynamicrules
 -+#! dynamicdetection directory /usr/lib/snort_dynamicrules #! disabled for performance reasons
-++#! dynamicdetection directory /Apps/opt/local/lib/snort_dynamicrules
-++#! dynamicdetection directory /Apps/opt/lib/snort_dynamicrules #! disabled for performance reasons
+++#! dynamicdetection directory /opt/local/lib/snort_dynamicrules
+++#! dynamicdetection directory /opt/lib/snort_dynamicrules #! disabled for performance reasons
   
   ###################################################
   # Step #5: Configure preprocessors

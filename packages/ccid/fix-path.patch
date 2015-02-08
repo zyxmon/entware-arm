@@ -5,13 +5,13 @@
  CONFIGURE_ARGS += \
  	--enable-embedded \
 -	--enable-usbdropdir=/usr/lib/pcsc/drivers
-+	--enable-usbdropdir=/Apps/opt/lib/pcsc/drivers
++	--enable-usbdropdir=/opt/lib/pcsc/drivers
  
  define Package/ccid/install
 -	$(INSTALL_DIR) $(1)/usr/lib/pcsc
 -	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pcsc/drivers $(1)/usr/lib/pcsc/
 +	$(INSTALL_DIR) $(1)/opt/lib/pcsc
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/opt/lib/pcsc/drivers $(1)/opt/lib/pcsc/
++	$(CP) $(PKG_INSTALL_DIR)/opt/lib/pcsc/drivers $(1)/opt/lib/pcsc/
  endef
  
  $(eval $(call BuildPackage,ccid))

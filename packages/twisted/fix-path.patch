@@ -25,7 +25,7 @@
  	)
 -	$(SED) 's,#!$(PYTHON),#!/usr/bin/python,' $(PKG_INSTALL_DIR)/usr/bin/*
 +	$(CP) $(PKG_BUILD_DIR)/zope.interface-$(ZOPE_IF_VER)/src/zope/__init__.py $(PKG_INSTALL_DIR)/opt/lib/python$(PYTHON_VERSION)/site-packages/zope/
-+	$(SED) 's,#!/usr/bin/env python,#!/Apps/opt/bin/python,' $(PKG_INSTALL_DIR)/opt/bin/*
++	$(SED) 's,#!/usr/bin/env python,#!/opt/bin/python,' $(PKG_INSTALL_DIR)/opt/bin/*
  endef
  
  $(eval $(call PyPackage,twisted))

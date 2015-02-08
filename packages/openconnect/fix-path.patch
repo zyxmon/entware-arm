@@ -610,7 +610,7 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r43593/feeds/packages/net/openco
  CONFIGURE_ARGS += \
  	--disable-shared \
 -	--with-vpnc-script=/lib/netifd/vpnc-script \
-+	--with-vpnc-script=/Apps/opt/lib/netifd/vpnc-script \
++	--with-vpnc-script=/opt/lib/netifd/vpnc-script \
  	--without-libpcsclite \
  	--without-stoken
  
