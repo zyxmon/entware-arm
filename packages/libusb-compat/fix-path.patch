@@ -1,17 +1,11 @@
---- ../../../downloads/openwrt_trunk-r43718/package/libs/libusb-compat/Makefile	2015-01-05 20:26:58.677493417 +0300
-+++ ../../../openwrt_trunk/package/libs/libusb-compat/Makefile	2015-01-08 10:26:26.555834375 +0300
-@@ -39,15 +39,15 @@
- TARGET_CFLAGS += $(FPIC)
- 
- define Build/InstallDev
--	$(INSTALL_DIR) $(1)
--	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
--	$(INSTALL_DIR) $(2)/bin
+--- ../../../downloads/openwrt_trunk-r43593/package/libs/libusb-compat/Makefile	2014-12-10 12:26:33.266951674 +0300
++++ ../../../openwrt_trunk/package/libs/libusb-compat/Makefile	2014-12-12 11:15:27.647872884 +0300
+@@ -42,12 +42,12 @@
+ 	$(INSTALL_DIR) $(1)
+ 	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
+ 	$(INSTALL_DIR) $(2)/bin
 -	$(CP) $(PKG_INSTALL_DIR)/usr/bin/libusb-config $(2)/bin/
-+	$(INSTALL_DIR) $(STAGING_DIR)/host/bin
-+
-+	$(CP) $(PKG_INSTALL_DIR)/Apps/* $(1)/
-+	$(CP) $(PKG_INSTALL_DIR)/opt/bin/libusb-config $(STAGING_DIR)/host/bin
++	$(CP) $(PKG_INSTALL_DIR)/opt/bin/libusb-config $(2)/bin/
  endef
  
  define Package/libusb-compat/install

@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r43719/feeds/oldpackages/net/weechat/Makefile	2015-01-10 13:05:42.471095632 +0300
-+++ ../../../openwrt_trunk/feeds/oldpackages/net/weechat/Makefile	2015-01-23 15:54:13.000000000 +0300
+--- ../../../downloads/openwrt_trunk-r43719/feeds/oldpackages/net/weechat/Makefile	2015-01-17 14:40:34.055461928 +0300
++++ ../../../openwrt_trunk/feeds/oldpackages/net/weechat/Makefile	2015-02-08 16:56:50.402499767 +0300
 @@ -8,14 +8,14 @@
  include $(TOPDIR)/rules.mk
  
@@ -43,9 +43,8 @@
 +
 +
  CMAKE_OPTIONS+= \
--	-DENABLE_PYTHON=OFF \
+ 	-DENABLE_PYTHON=OFF \
 -	-DENABLE_PERL=OFF \
-+	-DENABLE_PYTHON=ON \
 +	-DENABLE_PYTHON3=OFF \
 +	-DPYTHON_EXECUTABLE="$(STAGING_DIR)/host/bin/python2.7" \
 +	-DPYTHON_INCLUDE_PATH="$(STAGING_DIR)/opt/include/python2.7" \
