@@ -1,13 +1,12 @@
-CONFIG_TARGET_qnaparm=y
-# CONFIG_TARGET_qnapx86 is not set
-CONFIG_TARGET_qnaparm_Default=y
-CONFIG_TARGET_BOARD="qnaparm"
-CONFIG_TARGET_ARCH_PACKAGES="qnaparm"
-CONFIG_DEFAULT_TARGET_OPTIMIZATION="-Os -pipe -march=armv5te -mtune=xscale"
-CONFIG_CPU_TYPE="xscale"
+CONFIG_TARGET_armv7soft=y
+CONFIG_TARGET_armv7soft_Default=y
+CONFIG_TARGET_BOARD="armv7soft"
+CONFIG_TARGET_ARCH_PACKAGES="armv7soft"
+CONFIG_DEFAULT_TARGET_OPTIMIZATION="-O2 -pipe -march=armv7-a -mtune=cortex-a9"
+CONFIG_CPU_TYPE="cortex-a9"
 CONFIG_arm=y
 CONFIG_ARCH="arm"
-CONFIG_TARGET_OPTIMIZATION="-O2 -pipe -march=armv5te -mtune=xscale"
+CONFIG_TARGET_OPTIMIZATION="-O2 -pipe -march=armv7-a -mtune=cortex-a9"
 CONFIG_SOFT_FLOAT=y
 CONFIG_TARGET_NAME="arm-openwrt-linux-gnueabi"
 CONFIG_TOOLCHAIN_PREFIX="arm-unknown-linux-gnueabi-"
