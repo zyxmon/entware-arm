@@ -71,7 +71,7 @@
 +define Package/locales/postinst
 +#!/bin/sh
 +
-+echo "qnapware uses separate locale-archive file independent from main system"
++echo "Entware-arm uses separate locale-archive file independent from main system"
 +if ! [ -f '/opt/usr/lib/locale/locale-archive' ]
 +then
 +	mkdir -p /opt/usr/lib/locale
@@ -85,7 +85,7 @@
 +then
 +        echo "/opt/usr/lib/locale/locale-archive found"
 +        echo "You can download locale sources from http://qnapware.zyxmon.org/sources/i18n.tar.gz"
-+        echo "You can add new locales for qnapware using /opt/bin/localedef.new"
++        echo "You can add new locales for Entware-arm using /opt/bin/localedef.new"
 +fi
 +endef
 +

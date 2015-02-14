@@ -1,3 +1,3 @@
 # Description
 
-qnapware is a fork of entware for QNAP NASes.
+Entware-arm is a fork of entware for armv7 architecture
