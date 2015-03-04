@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2011-2014 Entware
+# Copyright (C) 2011-2015 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -33,11 +33,8 @@ $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION): \
 	svn co --revision=$(OPENWRT_REVISION) svn://svn.openwrt.org/openwrt/trunk/ $(TOP)/openwrt_trunk
 	cp -f feeds.conf $(TOP)/openwrt_trunk
 	(cd $(TOP)/openwrt_trunk; \
-	    for feed in packages routing telephony management oldpackages rtndev qdev; \
-	    do \
-		./scripts/feeds update $$feed; \
-		./scripts/feeds install -a -p $$feed; \
-	    done)
+	./scripts/feeds update; \
+	./scripts/feeds install -a;)
 	mkdir -p $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION)
 	ln -sf $(TOP)/downloads $(TOP)/openwrt_trunk/dl
 	cp -fr $(TOP)/openwrt_trunk/* $(TOP)/downloads/openwrt_trunk-a$(OPENWRT_REVISION)

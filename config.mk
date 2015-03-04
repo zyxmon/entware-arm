@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 
-export OPENWRT_REVISION=43719
+export OPENWRT_REVISION=44497
 
 # Target architecture for repo (now only x86 is supported)
 export TARGET=arm
