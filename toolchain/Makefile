@@ -35,8 +35,10 @@ all: .toolchain_prepared
 	$(TOP)/downloads/$(GLIBC_ARCH) \
 	$(TOP)/downloads/$(KERNEL_ARCH) \
 	$(TOP)/downloads/$(CROSS_ARCH)
-	tar -C $(TOP)/cross/$(TARGET) -xf $(TOP)/downloads/$(CROSS_ARCH)
-	patch -d $(TOP)/cross/$(TARGET)/$(CROSS) -p1 < crosstool-ng-from-trunc.patch
+	[ -d $(TOP)/cross/$(TARGET)/$(CROSS) ] || ( \
+		tar -C $(TOP)/cross/$(TARGET) -xf $(TOP)/downloads/$(CROSS_ARCH) && \
+		patch -d $(TOP)/cross/$(TARGET)/$(CROSS) -p1 < crosstool-ng-from-trunc.patch \
+	)
 	( \
 		cd $(TOP)/cross/$(TARGET)/$(CROSS) && \
 		./bootstrap && \
