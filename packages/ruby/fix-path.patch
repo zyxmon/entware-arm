@@ -1,7 +1,16 @@
-diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/Makefile ../../../openwrt_trunk/feeds/packages/lang/ruby/Makefile
---- ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/Makefile	2015-02-25 12:52:24.060489427 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/ruby/Makefile	2015-03-01 11:18:24.412053624 +0300
-@@ -827,24 +827,25 @@
+diff -urx .svn ../../../downloads/openwrt_trunk-r45513/feeds/packages/lang/ruby/Makefile ../../../openwrt_trunk/feeds/packages/lang/ruby/Makefile
+--- ../../../downloads/openwrt_trunk-r45513/feeds/packages/lang/ruby/Makefile	2015-04-21 10:37:38.184588033 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/ruby/Makefile	2015-04-22 09:57:02.515054286 +0300
+@@ -575,7 +575,7 @@
+ define Package/ruby-psych
+ $(call Package/ruby/Default)
+   TITLE+=YAML parser and emitter
+-  DEPENDS:=ruby +ruby-bigdecimal +ruby-datetime +ruby-misc +ruby-enc
++  DEPENDS:=ruby +ruby-bigdecimal +ruby-datetime +ruby-misc +ruby-enc +libyaml
+ endef
+ 
+ define Package/ruby-psych/description
+@@ -833,24 +833,25 @@
  
  MAKE_FLAGS += \
  	DESTDIR="$(PKG_INSTALL_DIR)" \
@@ -39,15 +48,13 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-stdlib/install
-@@ -852,466 +853,466 @@
- endef
+@@ -859,217 +860,217 @@
  
  define Package/ruby-bigdecimal/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/bigdecimal.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/bigdecimal/ \
 -		usr/lib/ruby/gems/$(PKG_LIBVER)/specifications/default/bigdecimal-*.gemspec \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/bigdecimal.so \
 +		opt/lib/ruby/$(PKG_LIBVER)/bigdecimal/ \
 +		opt/lib/ruby/gems/$(PKG_LIBVER)/specifications/default/bigdecimal-*.gemspec \
@@ -71,12 +78,11 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-datetime/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/time.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/date.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/date/ \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/date_core.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/time.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/date.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/date/ \
@@ -85,22 +91,20 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-dbm/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/dbm.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/dbm.so \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-debuglib/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/profile.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/profiler.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/debug.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/tracer.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/benchmark.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/objspace.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/profile.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/profiler.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/debug.rb \
@@ -111,12 +115,11 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-digest/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/digest \
 -		usr/lib/ruby/$(PKG_LIBVER)/digest.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/digest.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/digest/* \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/digest \
 +		opt/lib/ruby/$(PKG_LIBVER)/digest.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/digest.so \
@@ -125,22 +128,20 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-drb/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/drb.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/drb \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/drb.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/drb \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-enc/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/enc/encdb.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/enc/iso_8859_1.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/enc/utf_* \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/enc/euc_jp.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/enc/encdb.so \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/enc/iso_8859_1.so \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/enc/utf_* \
@@ -149,12 +150,11 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-enc-extra/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) \
 -		--exclude=usr/lib/ruby/$(PKG_LIBVER)/*/enc/encdb.so \
 -		--exclude=usr/lib/ruby/$(PKG_LIBVER)/*/enc/iso_8859_1.so \
 -		--exclude=usr/lib/ruby/$(PKG_LIBVER)/*/enc/utf_* \
 -		--exclude=usr/lib/ruby/$(PKG_LIBVER)/*/enc/euc_jp.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) \
 +		--exclude=opt/lib/ruby/$(PKG_LIBVER)/*/enc/encdb.so \
 +		--exclude=opt/lib/ruby/$(PKG_LIBVER)/*/enc/iso_8859_1.so \
 +		--exclude=opt/lib/ruby/$(PKG_LIBVER)/*/enc/utf_* \
@@ -177,11 +177,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-fiddle/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/fiddle.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/fiddle/ \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/fiddle.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/fiddle.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/fiddle/ \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/fiddle.so \
@@ -189,14 +188,13 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-filelib/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/tmpdir.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/tempfile.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/pathname.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/pathname.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/find.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/fileutils.rb \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/tmpdir.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/tempfile.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/pathname.rb \
@@ -207,9 +205,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-gdbm/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/gdbm.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/gdbm.so \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
@@ -249,11 +246,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-io-console/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/io/console.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/io/console/ \
 -		usr/lib/ruby/gems/$(PKG_LIBVER)/specifications/default/io-console-*.gemspec \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/io/console.so \
 +		opt/lib/ruby/$(PKG_LIBVER)/io/console/ \
 +		opt/lib/ruby/gems/$(PKG_LIBVER)/specifications/default/io-console-*.gemspec \
@@ -274,12 +270,11 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-json/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/json.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/json \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/json \
 -		usr/lib/ruby/gems/$(PKG_LIBVER)/specifications/default/json-*.gemspec \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/json.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/json \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/json \
@@ -291,11 +286,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-logger/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/logger.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/syslog/logger.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/syslog.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/logger.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/syslog/logger.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/syslog.so \
@@ -303,14 +297,13 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-math/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/prime.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/mathn.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/cmath.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/mathn \
 -		usr/lib/ruby/$(PKG_LIBVER)/matrix.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/matrix \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/prime.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/mathn.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/cmath.rb \
@@ -336,7 +329,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  
  define Package/ruby-misc/install
 -	$(INSTALL_DIR) $(1)/usr/lib
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
++	$(INSTALL_DIR) $(1)/opt/lib
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/English.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/abbrev.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/base64.rb \
@@ -360,8 +354,6 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
 -		usr/lib/ruby/$(PKG_LIBVER)/*/pty.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/stringio.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/strscan.so \
-+	$(INSTALL_DIR) $(1)/opt/lib
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/English.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/abbrev.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/base64.rb \
@@ -388,20 +380,19 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
- 
+@@ -1077,242 +1078,242 @@
  
  define Package/ruby-mkmf/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/mkmf.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/un.rb \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/mkmf.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/un.rb \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-multithread/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/monitor.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/timeout.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/thwait.rb \
@@ -410,7 +401,6 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
 -		usr/lib/ruby/$(PKG_LIBVER)/*/thread.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/io/wait.so \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/io/nonblock.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/monitor.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/timeout.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/thwait.rb \
@@ -423,31 +413,28 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-net/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/open-uri.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/net/* \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/open-uri.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/net/* \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-nkf/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/kconv.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/nkf.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/kconv.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/nkf.so \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-openssl/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/openssl \
 -		usr/lib/ruby/$(PKG_LIBVER)/openssl.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/openssl.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/openssl \
 +		opt/lib/ruby/$(PKG_LIBVER)/openssl.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/openssl.so \
@@ -455,11 +442,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-optparse/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/optparse.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/optionparser.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/optparse \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/optparse.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/optionparser.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/optparse \
@@ -467,11 +453,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-patterns/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/observer.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/singleton.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/forwardable.rb \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/observer.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/singleton.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/forwardable.rb \
@@ -493,10 +478,9 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-prettyprint/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/pp.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/prettyprint.rb \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/pp.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/prettyprint.rb \
  	) | ( cd $(1); $(TAR) -xf - )
@@ -510,12 +494,11 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-psych/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/psych \
 -		usr/lib/ruby/$(PKG_LIBVER)/psych.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/psych.so \
 -		usr/lib/ruby/gems/$(PKG_LIBVER)/specifications/default/psych-*.gemspec \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/psych \
 +		opt/lib/ruby/$(PKG_LIBVER)/psych.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/psych.so \
@@ -524,10 +507,9 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-racc/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/racc \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/racc/*.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/racc \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/racc/*.so \
  	) | ( cd $(1); $(TAR) -xf - )
@@ -560,11 +542,10 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-rbconfig/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/rbconfig.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/rbconfig/* \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/rbconfig/*.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/rbconfig.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/rbconfig/* \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/rbconfig/*.so \
@@ -606,9 +587,8 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-readline/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/readline.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/readline.so \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
@@ -621,19 +601,17 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-rinda/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/rinda \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/rinda \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-ripper/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/ripper.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/ripper \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/ripper.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/ripper.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/ripper \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/ripper.so \
@@ -650,32 +628,29 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-sdbm/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/sdbm.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/sdbm.so \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-shell/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/shell.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/shell \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/shell.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/shell \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-socket/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/gserver.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/ipaddr.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/resolv-replace.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/resolv.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/socket.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/socket.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/gserver.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/ipaddr.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/resolv-replace.rb \
@@ -702,20 +677,18 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-unicodenormalize/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/unicode_normalize.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/unicode_normalize \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/unicode_normalize.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/unicode_normalize \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-uri/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/uri.rb \
 -		usr/lib/ruby/$(PKG_LIBVER)/uri \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/uri.rb \
 +		opt/lib/ruby/$(PKG_LIBVER)/uri \
  	) | ( cd $(1); $(TAR) -xf - )
@@ -740,41 +713,33 @@ diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/
  endef
  
  define Package/ruby-yaml/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/yaml \
 -		usr/lib/ruby/$(PKG_LIBVER)/yaml.rb \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/yaml \
 +		opt/lib/ruby/$(PKG_LIBVER)/yaml.rb \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
  define Package/ruby-zlib/install
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
+ 	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 -		usr/lib/ruby/$(PKG_LIBVER)/*/zlib.so \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
 +		opt/lib/ruby/$(PKG_LIBVER)/*/zlib.so \
  	) | ( cd $(1); $(TAR) -xf - )
  endef
  
- define Build/InstallDev
--	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
-+	( cd $(PKG_INSTALL_DIR); $(TAR) -cf - \
- 		. \
- 	) | ( cd $(1); $(TAR) -xf - )
- endef
-diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/ruby_find_pkgsdeps ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_find_pkgsdeps
---- ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/ruby_find_pkgsdeps	2015-02-25 12:52:24.060489427 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_find_pkgsdeps	2015-02-27 16:24:18.189105032 +0300
+diff -urx .svn ../../../downloads/openwrt_trunk-r45513/feeds/packages/lang/ruby/ruby_find_pkgsdeps ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_find_pkgsdeps
+--- ../../../downloads/openwrt_trunk-r45513/feeds/packages/lang/ruby/ruby_find_pkgsdeps	2015-04-21 10:37:38.184588033 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_find_pkgsdeps	2015-04-21 10:37:45.224587905 +0300
 @@ -1,4 +1,4 @@
 -#!/usr/bin/ruby -Eutf-8
 +#!/opt/bin/ruby -Eutf-8
  # encoding: utf-8
  #
  # Find dependencies between ruby packages
-diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/ruby_missingfiles ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_missingfiles
---- ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/ruby/ruby_missingfiles	2015-02-25 12:52:24.060489427 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_missingfiles	2015-02-27 16:24:18.189105032 +0300
+diff -urx .svn ../../../downloads/openwrt_trunk-r45513/feeds/packages/lang/ruby/ruby_missingfiles ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_missingfiles
+--- ../../../downloads/openwrt_trunk-r45513/feeds/packages/lang/ruby/ruby_missingfiles	2015-04-21 10:37:38.184588033 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/ruby/ruby_missingfiles	2015-04-21 10:37:45.224587905 +0300
 @@ -1,4 +1,4 @@
 -#!/bin/bash
 +#!/opt/bin/bash

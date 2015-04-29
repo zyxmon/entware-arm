@@ -1,6 +1,6 @@
---- ../../../openwrt_trunk.orig/feeds/packages/libs/libvorbisidec/Makefile
-+++ ../../../openwrt_trunk/feeds/packages/libs/libvorbisidec/Makefile
-@@ -43,15 +43,15 @@
+--- ../../../downloads/openwrt_trunk-r45513/feeds/packages/libs/libvorbisidec/Makefile	2015-04-20 10:09:28.906135359 +0300
++++ ../../../openwrt_trunk/feeds/packages/libs/libvorbisidec/Makefile	2015-04-20 10:09:47.522135022 +0300
+@@ -48,15 +48,15 @@
  CONFIGURE_ARGS += --enable-shared --enable-static
  
  define Build/InstallDev

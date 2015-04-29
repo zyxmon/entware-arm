@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r43719/package/system/opkg/Makefile	2015-01-17 14:40:34.459215286 +0300
-+++ ../../../openwrt_trunk/package/system/opkg/Makefile	2015-02-11 08:49:16.196338051 +0300
+--- ../../../downloads/openwrt_trunk-a45513/package/system/opkg/Makefile	2015-04-27 23:46:08.747175211 +0300
++++ ../../../openwrt_trunk/package/system/opkg/Makefile	2015-04-28 20:45:59.216729398 +0300
 @@ -5,7 +5,6 @@
  # See /LICENSE for more information.
  
@@ -8,10 +8,10 @@
  include $(INCLUDE_DIR)/version.mk
  include $(INCLUDE_DIR)/feeds.mk
  
-@@ -87,8 +86,9 @@
- CONFIGURE_ARGS += \
+@@ -90,62 +89,39 @@
  	--disable-curl \
  	--disable-gpg \
+ 	--enable-sha256 \
 -	--with-opkgetcdir=/etc \
 -	--with-opkglockfile=/var/lock/opkg.lock
 +	--with-opkgetcdir=/opt/etc \
@@ -19,8 +19,15 @@
 +	--with-opkglockfile=/opt/var/lock/opkg.lock
  
  ifeq ($(BUILD_VARIANT),smime)
- 	CONFIGURE_ARGS += --enable-openssl --enable-sha256
-@@ -98,40 +98,27 @@
+-	CONFIGURE_ARGS += --enable-openssl --disable-usign
+-else
+-  ifndef CONFIG_SIGNED_PACKAGES
+-    CONFIGURE_ARGS += --disable-usign
+-  endif
++	CONFIGURE_ARGS += --enable-openssl --enable-sha256
+ endif
+ 
+ MAKE_FLAGS = \
  		CC="$(TARGET_CC)" \
  		DESTDIR="$(PKG_INSTALL_DIR)" \
  		HOST_CPU="$(PKGARCH)" \
@@ -32,6 +39,9 @@
 -	$(INSTALL_DIR) $(1)/bin
 -	$(INSTALL_DIR) $(1)/etc
 -	$(INSTALL_DATA) ./files/opkg$(2).conf $(1)/etc/opkg.conf
+-  ifneq ($(CONFIG_SIGNED_PACKAGES),)
+-	echo "option check_signature 1" >> $(1)/etc/opkg.conf
+-  endif
 -  ifeq ($(CONFIG_PER_FEED_REPO),)
 -	echo "src/gz %n %U" >> $(1)/etc/opkg.conf
 -  else
@@ -46,6 +56,12 @@
 -  endif
 -	$(VERSION_SED) $(1)/etc/opkg.conf
 -	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/opkg-cl $(1)/bin/opkg
+-endef
+-
+-define Package/opkg/install
+-	$(call Package/opkg/Default/install,$(1),)
+-	mkdir $(1)/usr/sbin
+-	$(INSTALL_BIN) ./files/opkg-key $(1)/usr/sbin/
 +	$(INSTALL_DIR) $(1)/opt/lib/opkg
 +	$(INSTALL_DIR) $(1)/opt/{bin,etc,tmp}
 +	$(INSTALL_DIR) $(1)/opt/var/{lock,log,run}
@@ -53,8 +69,8 @@
 +	$(INSTALL_DATA) ./files/opkg.conf.$(CONFIG_ARCH) $(1)/opt/etc/opkg.conf
  endef
  
- Package/opkg/install = $(call Package/opkg/Default/install,$(1),)
- 
++Package/opkg/install = $(call Package/opkg/Default/install,$(1),)
++
  define Package/opkg-smime/install
  	$(call Package/opkg/Default/install,$(1),-smime)
 -	$(INSTALL_DIR) $(1)/etc/ssl/certs

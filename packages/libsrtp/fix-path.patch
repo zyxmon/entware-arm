@@ -1,6 +1,6 @@
---- ../../../openwrt_trunk.orig/feeds/telephony/libs/libsrtp/Makefile
-+++ ../../../openwrt_trunk/feeds/telephony/libs/libsrtp/Makefile
-@@ -38,17 +38,17 @@
+--- ../../../downloads/openwrt_trunk-r45513/feeds/telephony/libs/libsrtp/Makefile	2015-04-20 10:09:29.074135357 +0300
++++ ../../../openwrt_trunk/feeds/telephony/libs/libsrtp/Makefile	2015-04-20 10:09:47.330135024 +0300
+@@ -47,17 +47,17 @@
  endef
  
  define Build/InstallDev
