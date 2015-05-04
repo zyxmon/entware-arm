@@ -156,7 +156,7 @@
 +		$(CP) $(call qstrip,$(CONFIG_LIBC_ROOT_DIR))/$$$$file $(1)/opt/$$$$dir/ ; \
  	done ; \
 +	$(INSTALL_DIR) $(1)/opt/etc ; \
-+	$(CP) ./files/nsswitch_syno.conf $(1)/opt/etc/nsswitch.conf ; \
++	$(CP) ./files/nsswitch.conf $(1)/opt/etc/nsswitch.conf ; \
  	exit 0
    endef
  
