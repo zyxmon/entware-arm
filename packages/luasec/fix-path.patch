@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r44497/feeds/packages/lang/luasec/Makefile	2015-02-24 12:08:55.089768282 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/luasec/Makefile	2015-03-04 12:27:14.690446056 +0300
+--- ../../../downloads/openwrt_trunk-q45513/feeds/packages/lang/luasec/Makefile	2015-04-23 16:31:59.263358623 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/luasec/Makefile	2015-04-26 18:45:35.022783946 +0300
 @@ -43,19 +43,19 @@
  MAKE_FLAGS += \
  	INCDIR="$(TARGET_CPPFLAGS) -I." \

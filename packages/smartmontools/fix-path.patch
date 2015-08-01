@@ -1,14 +1,6 @@
---- ../../../downloads/openwrt_trunk-a44497/feeds/packages/utils/smartmontools/Makefile	2015-03-03 20:47:31.943426275 +0300
-+++ ../../../openwrt_trunk/feeds/packages/utils/smartmontools/Makefile	2015-03-04 07:18:33.346214484 +0300
-@@ -6,7 +6,6 @@
- #
- 
- include $(TOPDIR)/rules.mk
--include $(INCLUDE_DIR)/uclibc++.mk
- 
- PKG_NAME:=smartmontools
- PKG_VERSION:=6.3
-@@ -21,12 +20,14 @@
+--- ../../../downloads/openwrt_trunk-a46338/feeds/packages/utils/smartmontools/Makefile	2015-07-27 21:04:19.670143457 +0300
++++ ../../../openwrt_trunk/feeds/packages/utils/smartmontools/Makefile	2015-07-28 07:52:09.899297435 +0300
+@@ -21,12 +21,14 @@
  
  PKG_FIXUP:=autoreconf
  
@@ -24,7 +16,7 @@
    TITLE:=S.M.A.R.T Monitoring
    URL:=http://smartmontools.sourceforge.net/
  endef
-@@ -58,10 +59,10 @@
+@@ -58,10 +60,10 @@
  # uses GNU configure
  
  CONFIGURE_VARS += \
@@ -38,7 +30,7 @@
  
  define Build/Compile
  	$(MAKE) -C $(PKG_BUILD_DIR) \
-@@ -70,21 +71,23 @@
+@@ -70,21 +72,23 @@
  endef
  
  define Package/smartmontools/install

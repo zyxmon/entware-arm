@@ -16,15 +16,15 @@ if ( [ ! -c /dev/net/tun ] ) then
 fi
 
 # Make sure the tunnel driver is loaded
-if ( !(lsmod | grep -q "^tun") ); then
-	insmod /opt/lib/modules/tun.ko
-fi
+#if ( !(lsmod | grep -q "^tun") ); then
+#	insmod /opt/lib/modules/tun.ko
+#fi
 
 ENABLED=yes
 PROCS=openvpn
 ARGS="--daemon --cd /opt/etc/openvpn --config openvpn.conf"
 PREARGS=""
 DESC=$PROCS
-PATH=/opt/sbin:/opt/bin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=/opt/sbin:/opt/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 . /opt/etc/init.d/rc.func

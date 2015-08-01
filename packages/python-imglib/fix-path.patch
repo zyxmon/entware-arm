@@ -1,6 +1,6 @@
-diff -urx .svn ../../../downloads/openwrt_trunk-r44497/feeds/packages/lang/python-imglib/Makefile ../../../openwrt_trunk/feeds/packages/lang/python-imglib/Makefile
---- ../../../downloads/openwrt_trunk-r44497/feeds/packages/lang/python-imglib/Makefile	2015-02-20 12:39:13.357134248 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python-imglib/Makefile	2015-02-20 20:58:01.583483083 +0300
+diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/python-imglib/Makefile ../../../openwrt_trunk/feeds/packages/lang/python-imglib/Makefile
+--- ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/python-imglib/Makefile	2015-02-25 12:52:24.060489427 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python-imglib/Makefile	2015-02-28 23:50:27.806542361 +0300
 @@ -16,7 +16,8 @@
  PKG_MD5SUM:=fc14a54e1ce02a0225be8854bfba478e
  
@@ -32,9 +32,9 @@ diff -urx .svn ../../../downloads/openwrt_trunk-r44497/feeds/packages/lang/pytho
  endef
  
  $(eval $(call BuildPackage,python-imglib))
-diff -urx .svn ../../../downloads/openwrt_trunk-r44497/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch ../../../openwrt_trunk/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch
---- ../../../downloads/openwrt_trunk-r44497/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch	2015-02-20 12:39:13.357134248 +0300
-+++ ../../../openwrt_trunk/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch	2015-02-20 12:39:23.341134066 +0300
+diff -urx .svn ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch ../../../openwrt_trunk/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch
+--- ../../../downloads/openwrt_trunk-q44497/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch	2015-02-25 12:52:24.060489427 +0300
++++ ../../../openwrt_trunk/feeds/packages/lang/python-imglib/patches/010-cross-compile.patch	2015-02-27 16:24:17.641755579 +0300
 @@ -7,11 +7,11 @@
   TCL_ROOT = None
  -JPEG_ROOT = None

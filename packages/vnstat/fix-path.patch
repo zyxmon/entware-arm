@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r44497/feeds/packages/net/vnstat/Makefile	2015-02-21 21:16:27.901891454 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/vnstat/Makefile	2015-02-23 20:14:37.258812339 +0300
+--- ../../../downloads/openwrt_trunk-r43719/feeds/packages/net/vnstat/Makefile	2015-01-10 13:05:42.539612718 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/vnstat/Makefile	2015-02-10 12:31:00.181117796 +0300
 @@ -9,7 +9,7 @@
  
  PKG_NAME:=vnstat

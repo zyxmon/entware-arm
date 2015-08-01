@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r45513/feeds/packages/net/openssh/Makefile	2015-04-20 10:09:28.918135362 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/openssh/Makefile	2015-04-20 14:07:14.073871394 +0300
+--- ../../../downloads/openwrt_trunk-q45513/feeds/packages/net/openssh/Makefile	2015-04-23 16:31:59.170342882 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/openssh/Makefile	2015-04-26 12:22:33.030326045 +0300
 @@ -57,7 +57,7 @@
  endef
  
@@ -31,6 +31,15 @@
  endef
  
  define Package/openssh-sftp-client
+@@ -125,7 +125,7 @@
+ 	$(call Package/openssh/Default)
+ 	TITLE+= SFTP server
+ 	# Strip dependencies to avoid pulling in OpenSSL etc.
+-	DEPENDS:=
++	DEPENDS:=+librt
+ endef
+ 
+ define Package/openssh-sftp-server/description
 @@ -144,14 +144,14 @@
  endef
  
@@ -49,6 +58,15 @@
  	--enable-shared \
  	--disable-static \
  	--disable-debug \
+@@ -193,7 +193,7 @@
+ define Build/Compile
+ 	$(MAKE) -C $(PKG_BUILD_DIR) \
+ 		DESTDIR="$(PKG_INSTALL_DIR)" \
+-		LIBS="" \
++		LIBS="-lrt" \
+ 		sftp-server
+ 	$(MAKE) -C $(PKG_BUILD_DIR) \
+ 		DESTDIR="$(PKG_INSTALL_DIR)" \
 @@ -201,83 +201,66 @@
  		all install
  endef

@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r45513/package/boot/kexec-tools/Makefile	2015-04-20 10:09:30.634135328 +0300
-+++ ../../../openwrt_trunk/package/boot/kexec-tools/Makefile	2015-04-20 12:52:56.185956761 +0300
+--- ../../../downloads/openwrt_trunk-q45513/package/boot/kexec-tools/Makefile	2015-04-23 16:31:59.398584599 +0300
++++ ../../../openwrt_trunk/package/boot/kexec-tools/Makefile	2015-04-26 00:05:10.058783450 +0300
 @@ -24,7 +24,7 @@
  define Package/kexec-tools
    SECTION:=utils

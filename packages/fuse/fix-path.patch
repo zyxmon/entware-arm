@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r44486/package/utils/fuse/Makefile	2015-02-18 12:16:58.360306318 +0300
-+++ ../../../openwrt_trunk/package/utils/fuse/Makefile	2015-02-19 14:43:09.538570430 +0300
+--- ../../../downloads/openwrt_trunk-q44497/package/utils/fuse/Makefile	2015-02-25 12:52:28.716885908 +0300
++++ ../../../openwrt_trunk/package/utils/fuse/Makefile	2015-02-28 11:48:28.175866894 +0300
 @@ -6,7 +6,6 @@
  #
  

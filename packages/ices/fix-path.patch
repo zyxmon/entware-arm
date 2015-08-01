@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r44497/feeds/packages/multimedia/ices/Makefile	2015-02-20 12:39:13.361134248 +0300
-+++ ../../../openwrt_trunk/feeds/packages/multimedia/ices/Makefile	2015-02-21 18:02:19.406102209 +0300
+--- ../../../downloads/openwrt_trunk-q44497/feeds/packages/multimedia/ices/Makefile	2015-02-25 12:52:24.000426160 +0300
++++ ../../../openwrt_trunk/feeds/packages/multimedia/ices/Makefile	2015-03-01 09:18:47.955684019 +0300
 @@ -40,12 +40,12 @@
  endef
  

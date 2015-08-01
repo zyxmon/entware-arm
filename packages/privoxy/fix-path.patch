@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r44497/feeds/packages/net/privoxy/Makefile	2015-02-24 12:08:56.437768256 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/privoxy/Makefile	2015-02-25 10:17:39.204317181 +0300
+--- ../../../downloads/openwrt_trunk-q44497/feeds/packages/net/privoxy/Makefile	2015-02-25 12:52:23.928421771 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/privoxy/Makefile	2015-03-01 10:59:36.611952738 +0300
 @@ -9,7 +9,7 @@
  
  PKG_NAME:=privoxy

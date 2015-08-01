@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r44486/package/network/utils/curl/Makefile	2015-02-18 12:16:58.264306320 +0300
-+++ ../../../openwrt_trunk/package/network/utils/curl/Makefile	2015-02-18 16:57:04.819998259 +0300
+--- ../../../downloads/openwrt_trunk-q45513/package/network/utils/curl/Makefile	2015-06-01 16:25:11.530474164 +0300
++++ ../../../openwrt_trunk/package/network/utils/curl/Makefile	2015-06-02 16:20:09.312630965 +0300
 @@ -112,15 +112,15 @@
  	\
  	$(call autoconf_bool,CONFIG_IPV6,ipv6) \

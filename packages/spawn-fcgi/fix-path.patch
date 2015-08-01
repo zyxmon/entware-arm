@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r45513/feeds/packages/net/spawn-fcgi/Makefile	2015-04-21 10:37:38.232588034 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/spawn-fcgi/Makefile	2015-04-21 15:01:26.000300193 +0300
+--- ../../../downloads/openwrt_trunk-q45513/feeds/packages/net/spawn-fcgi/Makefile	2015-04-27 08:56:50.899094882 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/spawn-fcgi/Makefile	2015-04-27 08:57:39.250728996 +0300
 @@ -35,8 +35,8 @@
  endef
  

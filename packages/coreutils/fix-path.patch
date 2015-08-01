@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-a45513/feeds/packages/utils/coreutils/Makefile	2015-06-02 09:11:15.408581428 +0300
-+++ ../../../openwrt_trunk/feeds/packages/utils/coreutils/Makefile	2015-07-08 12:10:20.310611528 +0300
+--- ../../../downloads/openwrt_trunk-q45513/feeds/packages/utils/coreutils/Makefile	2015-06-01 16:25:10.442474210 +0300
++++ ../../../openwrt_trunk/feeds/packages/utils/coreutils/Makefile	2015-07-08 11:03:47.060903142 +0300
 @@ -9,7 +9,7 @@
  
  PKG_NAME:=coreutils

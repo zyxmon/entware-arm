@@ -1,5 +1,5 @@
---- ../../../downloads/openwrt_trunk-r45513/feeds/packages/net/git/Makefile	2015-04-20 10:09:28.926135360 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/git/Makefile	2015-04-21 09:37:15.224655063 +0300
+--- ../../../downloads/openwrt_trunk-q45513/feeds/packages/net/git/Makefile	2015-04-23 16:31:59.194248599 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/git/Makefile	2015-04-26 19:14:55.157557763 +0300
 @@ -83,31 +83,31 @@
  endef
  
