@@ -1,6 +1,6 @@
-diff -urx .svn ../../../downloads/openwrt_trunk-a46338/feeds/packages/net/lighttpd/files/lighttpd.conf ../../../openwrt_trunk/feeds/packages/net/lighttpd/files/lighttpd.conf
---- ../../../downloads/openwrt_trunk-a46338/feeds/packages/net/lighttpd/files/lighttpd.conf	2015-08-05 08:18:39.254552649 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/lighttpd/files/lighttpd.conf	2015-08-01 11:06:54.021820355 +0300
+diff -urx .svn ../../../downloads/openwrt_trunk-q46338/feeds/packages/net/lighttpd/files/lighttpd.conf ../../../openwrt_trunk/feeds/packages/net/lighttpd/files/lighttpd.conf
+--- ../../../downloads/openwrt_trunk-q46338/feeds/packages/net/lighttpd/files/lighttpd.conf	2015-08-03 11:54:56.026796204 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/lighttpd/files/lighttpd.conf	2015-08-01 08:50:30.949461352 +0300
 @@ -1,12 +1,12 @@
  server.modules = (
  )
@@ -33,18 +33,9 @@ diff -urx .svn ../../../downloads/openwrt_trunk-a46338/feeds/packages/net/lightt
 -include_shell "cat /etc/lighttpd/conf.d/*.conf"
 +include       "/opt/etc/lighttpd/mime.conf"
 +include_shell "cat /opt/etc/lighttpd/conf.d/*.conf"
-diff -urx .svn ../../../downloads/openwrt_trunk-a46338/feeds/packages/net/lighttpd/Makefile ../../../openwrt_trunk/feeds/packages/net/lighttpd/Makefile
---- ../../../downloads/openwrt_trunk-a46338/feeds/packages/net/lighttpd/Makefile	2015-08-05 08:18:39.254552649 +0300
-+++ ../../../openwrt_trunk/feeds/packages/net/lighttpd/Makefile	2015-08-12 15:40:27.574219178 +0300
-@@ -9,7 +9,7 @@
- 
- PKG_NAME:=lighttpd
- PKG_VERSION:=1.4.35
--PKG_RELEASE:=5
-+PKG_RELEASE:=5a
- 
- PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
- PKG_SOURCE_URL:=http://download.lighttpd.net/lighttpd/releases-1.4.x
+diff -urx .svn ../../../downloads/openwrt_trunk-q46338/feeds/packages/net/lighttpd/Makefile ../../../openwrt_trunk/feeds/packages/net/lighttpd/Makefile
+--- ../../../downloads/openwrt_trunk-q46338/feeds/packages/net/lighttpd/Makefile	2015-08-03 11:54:56.026796204 +0300
++++ ../../../openwrt_trunk/feeds/packages/net/lighttpd/Makefile	2015-08-12 15:39:52.609498204 +0300
 @@ -50,8 +50,8 @@
  endef
  
